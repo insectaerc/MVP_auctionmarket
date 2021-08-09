@@ -1,7 +1,8 @@
 <?php
+    require 'mvc\controllers\BaseController.php';
     class App{
         protected $controller='Home';
-        protected $action='show';
+        protected $action='index';
         protected $param=[];
 
         function __construct(){
@@ -9,11 +10,11 @@
             //print_r($arr);
             
             //Url's Controller processing
-            if(isset($arr[0]) && file_exists("./mvc/controllers/".$arr[0].".php")){
+            if(isset($arr[0]) && file_exists("./mvc/controllers/".$arr[0]."Controller.php")){
                 $this->controller = $arr[0];
                 unset($arr[0]);
             }
-            require_once "./mvc/controllers/".$this->controller.".php";
+            require_once "./mvc/controllers/".$this->controller."Controller.php";
             if(isset($arr[1])){
                 if( method_exists( $this->controller , $arr[1]) ){
                     $this->action = $arr[1];
