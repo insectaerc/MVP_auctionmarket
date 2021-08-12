@@ -1,5 +1,4 @@
-<h1>Product View Page</h1>
-<h2>List of products</h2>
+Product Show Page
 <?php
     echo '<pre>';
     foreach ($data as $entry){

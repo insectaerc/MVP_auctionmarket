@@ -1,5 +1,5 @@
 <?php
-    class Customer extends BaseController{
+    class CustomerController extends BaseController{
         static function index(){
             parent::view('mvc\views\frontend\customers\index.php');
         }

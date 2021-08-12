@@ -1,10 +1,10 @@
 <?php
 class BaseController{
-    public static function view($path){
+    public static function view($path, array $data=[]){
         include $path;
     }
-    public function test(){
-        echo "lala";
+    protected static function loadModel($path){
+        require $path;
     }
 }
 ?>
