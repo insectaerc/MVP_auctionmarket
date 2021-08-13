@@ -1,7 +1,7 @@
 Product Show Page
 <?php
     echo '<pre>';
-    foreach ($data as $entry){
-        echo $entry['name'] . ' '.$entry['minPrice'] . ' '.$entry['closingTime'] . "<br>";
-    }
+    $product = [];
+    $product = $data[0];
+    echo $product['name'] . ' '.$product['minPrice'] . ' '.$product['closingTime'] . "<br>";
 ?>

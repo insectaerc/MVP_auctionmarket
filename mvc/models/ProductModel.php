@@ -11,7 +11,7 @@ class ProductModel extends MongoDatabase{
 
 
     public function getAll(){
-        $result = $this->collection->find( [] );
+        $result = $this->collection->find();
         $data = [];
         foreach ($result as $entry) {
             array_push($data, $entry);
@@ -22,7 +22,34 @@ class ProductModel extends MongoDatabase{
     public function findProduct($id){
         $result = $this->collection->findOne(['name' => $id]);
         $data = [];
-            array_push($data, $result);
+        array_push($data, $result);
+        return $data;
+    }
+
+    public function findEndSoonProduct(){
+        $result = $this->collection->find([], ['limit'=>4,'sort'=>['closingTime'=>1]]);
+        $data = [];
+        foreach ($result as $entry) {
+            array_push($data, $entry);
+        }
+        return $data;
+    }
+
+    public function findHighBidProduct(){
+        $result = $this->collection->find([], ['limit'=>4,'sort'=>['maxBid'=>-1]]);
+        $data = [];
+        foreach ($result as $entry) {
+            array_push($data, $entry);
+        }
+        return $data;
+    }
+
+    public function findMostBiddedProduct(){
+        $result = $this->collection->find([], ['limit'=>4,'sort'=>['bidNum'=>-1]]);
+        $data = [];
+        foreach ($result as $entry) {
+            array_push($data, $entry);
+        }
         return $data;
     }
 
