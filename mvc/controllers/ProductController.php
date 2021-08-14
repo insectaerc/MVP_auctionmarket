@@ -11,9 +11,9 @@
             $data = $this->productModel -> getAll();
             parent::view('mvc\views\frontend\products\index.php', $data);
         }
-        function show(){
-            $data = $this->productModel -> findProduct('Puffy Dorito');
-            parent::view('mvc\views\frontend\products\show.php', $data);
+        function detail($id){
+            $data = $this->productModel -> findProduct($id);
+            parent::view('mvc\views\frontend\products\detail.php', $data);
         }
     }
 ?>

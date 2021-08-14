@@ -2,6 +2,7 @@
     require 'vendor\autoload.php';
     require 'mvc\controllers\BaseController.php';
     require 'mvc\core\database\mongodb.php';
+    require 'mvc\views\frontend\bootstrap.html';
     class App{
         protected $controller='Home';
         protected $action='index';
@@ -27,12 +28,18 @@
             }
             //Url's Params processing
             //For special situation when user inputs params in the url
-            //$this->params = $arr?array_values($arr):[];
+            $this->params = $arr?array_values($arr):[];
             
             //Create object for specific controller and use the object to call specific action
             $controllerObject = new $this->controller;
             $action = $this->action;
-            $controllerObject->$action();
+            if(isset($arr[2])){
+                $controllerObject->$action($arr[2]);
+            }else{
+                $controllerObject->$action();
+            }
+            
+            
 
             //Ignore below line
             //call_user_func_array([$this->controller, $this->action], $this->params);
