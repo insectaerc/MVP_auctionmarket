@@ -12,7 +12,7 @@ DROP TABLE IF EXISTS customers;
 
 CREATE TABLE branches
 (
-    branch_id      CHAR(4)      NOT NULL,
+    branch_id      VARCHAR(30)      NOT NULL,
     branch_name    VARCHAR(40)  NOT NULL,
     branch_phone   VARCHAR(40)  NOT NULL,
     branch_address VARCHAR(250) NOT NULL,
