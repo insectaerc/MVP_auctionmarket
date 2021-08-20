@@ -8,27 +8,27 @@
 </head>
 <body>
     <?php 
-        include 'mvc\views\frontend\header.html';
+        include 'mvc/views/frontend/nav.html';
     ?>
-    <div class="card border-light text-dark mb-3 mx-4">
-        <div class="card-header text-danger h2"> End Soon </div>
+    <div class="card border-secondary text-dark mb-3 mx-4" id='endsoon'>
+        <a href="/MVP_auctionmarket/product/show/endsoon" class='text-decoration-none'><div class="card-header text-danger h2"> End Soon </div></a>
         <div class="card-body row">
             <?php
             foreach ($endSoonProducts as $entry){
                 echo    "<div class='col'>";
-                echo    "<a href='product/detail/{$entry['_id']}' style='text-decoration: none'>";
-                echo            "<img class='mb-3' src='public\images\dollarsign.jpg' alt='' style='max-width:100%; max-height:100%'>";
+                echo    "<a href='/MVP_auctionmarket/product/detail/{$entry['_id']}' style='text-decoration: none'>";
+                echo            "<img class='mb-3' src='/MVP_auctionmarket/public/images/dollarsign.jpg' alt='' style='max-width:100%; max-height:100%'>";
                 echo            "<h4 class='card-title'>{$entry['name']}</h4>";
                 echo        "</a>";
                 echo        "<div class='row'>";
                 echo            "<div class='col'>";
-                echo                "<p>Current Bid: ";
+                echo                "<p>Current Bid: <br>";
                 echo                '$';
                 echo                "{$entry['maxBid']}</p>";
-                echo                "<p>Close on: {$entry['closingTime']}</p>";
+                echo                "<p>Close on: <br>{$entry['closingTime']}</p>";
                 echo            "</div>";
                 echo            "<div class='col d-flex align-items-center'>";
-                echo                "<button type='button' class='btn btn-success w-100 '>Bid</button>";
+                echo                "<a href='/MVP_auctionmarket/product/detail/{$entry['_id']}' class='btn btn-success w-100' role='button'>Bid</a>";
                 echo            "</div>";
                 echo        "</div>";
                 echo    "</div>";
@@ -36,25 +36,25 @@
             ?>
         </div>
     </div>
-    <div class="card border-light text-dark mb-3 mx-4">
-        <div class="card-header text-danger h2"> High Price </div>
+    <div class="card border-secondary text-dark mb-3 mx-4" id='highbids'>
+        <a href="/MVP_auctionmarket/product/show/highbid" class='text-decoration-none'><div class="card-header text-danger h2"> High Bid </div></a>
         <div class="card-body row">
             <?php
             foreach ($highBidProducts as $entry){
                 echo    "<div class='col'>";
-                echo    "<a href='product' style='text-decoration: none'>";
-                echo            "<img class='mb-3' src='public\images\dollarsign.jpg' alt='' style='max-width:100%; max-height:100%'>";
+                echo    "<a href='/MVP_auctionmarket/product/detail/{$entry['_id']}' style='text-decoration: none'>";
+                echo            "<img class='mb-3' src='public/images/dollarsign.jpg' alt='' style='max-width:100%; max-height:100%'>";
                 echo            "<h4 class='card-title'>{$entry['name']}</h4>";
                 echo        "</a>";
                 echo        "<div class='row'>";
                 echo            "<div class='col'>";
-                echo                "<p>Current Bid: ";
+                echo                "<p>Current Bid: <br>";
                 echo                '$';
                 echo                "{$entry['maxBid']}</p>";
-                echo                "<p>Close on: {$entry['closingTime']}</p>";
+                echo                "<p>Close on: <br>{$entry['closingTime']}</p>";
                 echo            "</div>";
                 echo            "<div class='col d-flex align-items-center'>";
-                echo                "<button type='button' class='btn btn-success w-100 '>Bid</button>";
+                echo                "<a href='/MVP_auctionmarket/product/detail/{$entry['_id']}' class='btn btn-success w-100' role='button'>Bid</a>";
                 echo            "</div>";
                 echo        "</div>";
                 echo    "</div>";
@@ -62,25 +62,25 @@
             ?>
         </div>
     </div>
-    <div class="card border-light text-dark mb-3 mx-4">
-        <div class="card-header text-danger h2"> Most Bidded </div>
+    <div class="card border-secondary text-dark mb-3 mx-4" id='mostbidded'>
+        <a href="/MVP_auctionmarket/product/show/mostbidded" class='text-decoration-none'><div class="card-header text-danger h2"> Most Bidded </div></a>
         <div class="card-body row">
             <?php
             foreach ($mostBiddedProducts as $entry){
                 echo    "<div class='col'>";
-                echo    "<a href='product' style='text-decoration: none'>";
-                echo            "<img class='mb-3' src='public\images\dollarsign.jpg' alt='' style='max-width:100%; max-height:100%'>";
+                echo    "<a href='/MVP_auctionmarket/product/detail/{$entry['_id']}' style='text-decoration: none'>";
+                echo            "<img class='mb-3' src='public/images/dollarsign.jpg' alt='' style='max-width:100%; max-height:100%'>";
                 echo            "<h4 class='card-title'>{$entry['name']}</h4>";
                 echo        "</a>";
                 echo        "<div class='row'>";
                 echo            "<div class='col'>";
-                echo                "<p>Current Bid: ";
+                echo                "<p>Current Bid: <br>";
                 echo                "$";
                 echo                "{$entry['maxBid']}</p>";
-                echo                "<p>Close on: {$entry['closingTime']}</p>";
+                echo                "<p>Close on: <br>{$entry['closingTime']}</p>";
                 echo            "</div>";
                 echo            "<div class='col d-flex align-items-center'>";
-                echo                "<button type='button' class='btn btn-success w-100 '>Bid</button>";
+                echo                "<a href='/MVP_auctionmarket/product/detail/{$entry['_id']}' class='btn btn-success w-100' role='button'>Bid</a>";
                 echo            "</div>";
                 echo        "</div>";
                 echo    "</div>";

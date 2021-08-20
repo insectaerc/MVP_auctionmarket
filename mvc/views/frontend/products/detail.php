@@ -9,13 +9,13 @@
 </head>
 <body>
     <?php 
-        require 'mvc\views\frontend\header.html';
+        require 'mvc/views/frontend/nav.html';
     ?>
     <div class= 'row mx-5'>
         <?php
         foreach ($data as $entry){
             echo "<div class='col text-center' style='height:500px'>";
-            echo     "<img style='height:500px'src='public\images\dollarsign.png' alt='missing image I dont know why'>
+            echo     "<img style='height:500px'src='/MVP_auctionmarket/public/images/dollarsign.jpg' alt='missing image I dont know why'>
             </div>";
             echo "<div class='col'>";
             echo    "<h2>{$entry['name']}</h2>";
@@ -30,9 +30,6 @@
             echo "</div>";
         }
         ?>
-        
     </div>
-
-
 </body>
 </html>

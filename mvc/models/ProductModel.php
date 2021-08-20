@@ -26,26 +26,8 @@ class ProductModel extends MongoDatabase{
         return $data;
     }
 
-    public function findEndSoonProduct(){
-        $result = $this->collection->find([], ['projection'=>['name'=>1, 'closingTime'=>1,'maxBid'=>1, 'bidNum'=>1],'limit'=>4,'sort'=>['closingTime'=>1]]);
-        $data = [];
-        foreach ($result as $entry) {
-            array_push($data, $entry);
-        }
-        return $data;
-    }
-
-    public function findHighBidProduct(){
-        $result = $this->collection->find([], ['projection'=>['name'=>1, 'closingTime'=>1,'maxBid'=>1, 'bidNum'=>1],'limit'=>4,'sort'=>['maxBid'=>-1]]);
-        $data = [];
-        foreach ($result as $entry) {
-            array_push($data, $entry);
-        }
-        return $data;
-    }
-
-    public function findMostBiddedProduct(){
-        $result = $this->collection->find([], ['projection'=>['name'=>1, 'closingTime'=>1,'maxBid'=>1, 'bidNum'=>1],'limit'=>4,'sort'=>['bidNum'=>-1]]);
+    public function findClassifiedProduct($limit, $orderBy, $ascOrDesc){
+        $result = $this->collection->find([], ['projection'=>['name'=>1, 'closingTime'=>1,'maxBid'=>1, 'bidNum'=>1],'limit'=>$limit,'sort'=>[$orderBy=>$ascOrDesc]]);
         $data = [];
         foreach ($result as $entry) {
             array_push($data, $entry);
