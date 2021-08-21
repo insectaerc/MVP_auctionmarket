@@ -1,17 +1,19 @@
 <?php
 class CustomerController extends BaseController
 {
-    private $customertModel;
+    public static $instance;
+    private $customerModel;
     public function __construct()
     {
         //Create customerModel
+        self::$instance = $this;
         self::loadModel('mvc\models\CustomerModel.php');
         $this->customerModel = new CustomerModel;
     }
     function index()
     {
         $data = $this->customerModel->getCustomers();
-        $model = $this->customertModel;
+        $model = $this->customerModel;
         parent::view('mvc\views\frontend\customers\index.php', $data);
     }
     function detail($id)
@@ -21,7 +23,6 @@ class CustomerController extends BaseController
     }
     function check_user()
     {
-
         // Kiểm tra nếu người dùng đã ân nút đăng nhập thì mới xử lý
         if (isset($_POST["btn_submit"])) {
             // lấy thông tin người dùng
@@ -36,8 +37,45 @@ class CustomerController extends BaseController
             if ($username == "" || $password == "") {
                 echo "username or password cannot be blank!";
             } else {
-                $this -> customertModel->check_user($username,$password);
+                if ($this->customerModel == null) 
+                {
+                    $this->customerModel = new CustomerModel;                
+                   
+                }
+                $this->customerModel->check_user($username, $password);
             }
-        }        
+        }
+    }
+    function add_user()
+    {
+        $email = $_POST["email"];
+        $phone = $_POST["phone"];
+        $password = $_POST["psw"];
+        $repeatpassword = $_POST["psw-repeat"];
+        $firstName = $_POST["firstName"];
+        $lastName = $_POST["lastName"];
+        $city = $_POST["city"];
+        $country = $_POST["country"];
+        $nationalId= $_POST["nationalId"];
+        $branch = $_POST["branch"];
+        $gender = $_POST["gender"];
+        $balance = 0;
+
+        $user = array (
+            "email"=>$email,
+            "phone"=>$phone,
+            "pass" => $password,
+            "first_name"=>$firstName,
+            "last_name"=>$lastName,
+            "city"=>$city,
+            "country"=>$country,
+            "national_id"=>$nationalId,
+            "branch_id"=>$branch,
+            "gender"=>$gender,
+            "balance"=>$balance,
+            "branch"=>$branch
+        );
+        $this -> customerModel->addCustomer($user);
+
     }
 }
