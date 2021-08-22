@@ -19,11 +19,15 @@
             </div>
             </li>
             <li class="nav-item">
-            <a class="nav-link" href="#">Login</a>
+            <a class="nav-link" href="/MVP_auctionmarket/customer">Profile</a>
             </li>
-            <li class="nav-item">
-            <a class="nav-link" href="#">Register</a>
-            </li>
+            <?php 
+            if(isset($_SESSION['id'])){
+                echo "<li class='nav-item'>";
+                echo "<a class='nav-link' href='/MVP_auctionmarket/home/logout'>Log Out</a>";
+                echo "</li>";
+            }
+            ?>
         </ul>
         <form class="d-flex">
             <input class="form-control me-sm-2" type="text" placeholder="Search">

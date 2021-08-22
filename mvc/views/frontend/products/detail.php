@@ -9,7 +9,7 @@
 </head>
 <body>
     <?php 
-        require 'mvc/views/frontend/nav.html';
+        require 'mvc/views/frontend/nav.php';
     ?>
     <div class= 'row mx-5'>
         <?php

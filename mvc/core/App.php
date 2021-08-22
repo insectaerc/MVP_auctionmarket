@@ -2,8 +2,9 @@
     require 'vendor\autoload.php';
     require 'mvc\controllers\BaseController.php';
     require 'mvc\core\database\mongodb.php';
-    require 'mvc\core\database\MySQLDatabase.php';
+    require 'mvc\core\database\mysql.php';
     require 'mvc\views\frontend\bootstrap.html';
+    session_start();
     class App{
         protected $controller='Home';
         protected $action='index';

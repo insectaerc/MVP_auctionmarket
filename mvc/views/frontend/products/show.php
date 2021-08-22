@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php 
-        require 'mvc/views/frontend/nav.html';
+        require 'mvc/views/frontend/nav.php';
     ?>
     <div class="card border-light text-dark mb-3 mx-4">
         <div class="card-header text-danger h2"> <?php echo $title.' Items'?> </div>

@@ -94,35 +94,15 @@ class CustomerModel extends MySQLDatabase
 
   public function getCustomerById($id)
   {
-
-    $sqlStatement = "SELECT * FROM customers WHERE customer_id = :id";
-
     $stmt = $this->db->prepare("SELECT * FROM customers WHERE email=:id OR phone=:id");
     $stmt->execute(['id' => $id]);  
     $data = $stmt->fetch();
     return $data;
-    try {    
-      $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      $data = [];
-      foreach ($this->db->query($sqlStatement) as $row) {
-        array_push($data, $row);
-        //print $v;
-      }
-      return $data;
-    } catch (PDOException $e) {
-
-      $e->getMessage();
-      return null;
-    }
-
-   
   }
 
   public function check_user($id, $password)
   {
-
     $data = $this->getCustomerById($id);
-    $count = count($data);
     if ($data == null) {
       print("No user name existed");
       return;
@@ -130,6 +110,8 @@ class CustomerModel extends MySQLDatabase
     $account = $data;    
     if ($account['pass'] == $password) {
       print("login successed!");
+      $_SESSION['id']=$id;
+      header("Refresh:0");
     } else {
       print("login failed, wrong password!");
     }

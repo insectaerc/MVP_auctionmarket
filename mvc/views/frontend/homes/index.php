@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php 
-        include 'mvc/views/frontend/nav.html';
+        include 'mvc/views/frontend/nav.php';
     ?>
     <div class="card border-secondary text-dark mb-3 mx-4" id='endsoon'>
         <a href="/MVP_auctionmarket/product/show/endsoon" class='text-decoration-none'><div class="card-header text-danger h2"> End Soon </div></a>

@@ -7,20 +7,26 @@ class CustomerController extends BaseController
     {
         //Create customerModel
         self::$instance = $this;
-        self::loadModel('mvc\models\CustomerModel.php');
+        self::loadModel('mvc/models/CustomerModel.php');
         $this->customerModel = new CustomerModel;
     }
     function index()
     {
-        $data = $this->customerModel->getCustomers();
-        $model = $this->customerModel;
-        parent::view('mvc\views\frontend\customers\index.php', $data);
+        if(isset($_SESSION['id'])){
+            $data = $this->customerModel->getCustomers();
+            $model = $this->customerModel;
+            parent::view('mvc/views/frontend/customers/index.php', $data);
+        }else{
+            parent::view('mvc/views/frontend/customers/login.php');
+        }
     }
+    
     function detail($id)
     {
         $data = $this->customerModel->getCustomerById($id);
-        parent::view('mvc\views\frontend\customers\detail.php', $data);
+        parent::view('mvc/views/frontend/customers/detail.php', $data);
     }
+    
     function check_user()
     {
         // Kiểm tra nếu người dùng đã ân nút đăng nhập thì mới xử lý
