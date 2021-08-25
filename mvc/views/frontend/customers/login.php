@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,14 +6,20 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="mvc/views/frontend/style.css" rel="stylesheet" type="text/css">
     <title>Customers</title>
 </head>
+
 <body>
-    <?php
-    require 'mvc\views\frontend\nav.php';
-    ?>
-    <div class="card border-light text-dark mb-3 mx-4">
-        <div class="card-header text-danger h2"> Customer Login/ Signup </div>
+
+<?php
+    require 'mvc/views/frontend/nav.php';
+?>
+
+<div class="container" >
+    <div class="form-container">
+        <div class= "signin">
+
         <?php
         //echo "This is Button1 that is selected";
         $controller = CustomerController::$instance;
@@ -21,101 +28,88 @@
         }
         ?>
 
-        <form method="post">
-
-            <div class="container">
-                <label for="uname"><b>Username</b></label>
-                <input type="text" placeholder="Enter Username" name="username" required>
-
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="password" required>
-
-                <input name="btn_submit" type="submit">Login</input>
-                <label>
-                    <input type="checkbox" checked="checked" name="remember"> Remember me
-                </label>
+        <form action="" method = "post" class="sign-in-form">
+         <h1> Sign in </h1> 
+         <p>Please fill in this form to log in.</p>
+         <hr>
+            <label for="uname" class="form-label mt-4" > Username </label>
+            <input type="text" class="form-control"  placeholder="Enter username" name ="username"required>
+                
+            <label for="psw" class="form-label mt-4" > Password </label>
+            <input type="password" class="form-control" placeholder="Enter Password" name="password" required>
+            <label>
+            <br> </br>
+            <input type="checkbox" class="form-check-input" checked="checked" name="remember"> Remember me
+            </label>  
+            <br> </br>
+            <a href="#">Forgot Your Password</a>
+        <hr>       
+             <button type="submit" id ="sign-in-button" class="btn btn-primary">Sign in</button> 
+            </form>
             </div>
+    </div>
+</div>
 
-            <div class="container" style="background-color:#f1f1f1">
-                <button type="button" class="cancelbtn">Cancel</button>
-                <span class="psw">Forgot <a href="#">password?</a></span>
-            </div>
-        </form>
-
-        <?php
+<?php
         //echo "This is Button1 that is selected";
         $controller = CustomerController::$instance;
         if (isset($_POST['btn_register'])) {
-            $controller::$instance->add_user();
-        }
-        ?>
-        <form method="post">
-            <div class="container">
-                <h1>Register</h1>
-                <p>Please fill in this form to create an account.</p>
-                <hr>
-                <label for="email"><b>Email</b></label>
-                <input type="email" placeholder="Enter Email" name="email" id="email" required>
-                <br/>
-                <br/>
-                <label for="phone"><b>Phone</b></label>
-                <input type="tel" placeholder="Enter Phone Number" name="phone" id="phone" required>
-                <br/>
-                <br/>
-                <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
-                <br/>
-                <br/>
-                <label for="psw-repeat"><b>Repeat Password</b></label>
-                <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
-                <br/>
-                <br/>
-                <label for="firstName"><b>First Name</b></label>
-                <input type="text" placeholder="Enter first name" name="firstName" id="firstName" required>
-                <br/>
-                <br/>
-                <label for="lastName"><b>Last Name</b></label>
-                <input type="text" placeholder="Enter last name" name="lastName" id="lastName" required>
-                <br/>
-                <br/>
-                <label for="city"><b>City</b></label>
-                <input type="text" placeholder="Enter city" name="city" id="city" required>
-                <br/>
-                <br/>
-                <label for="country"><b>Country</b></label>
-                <input type="text" placeholder="Enter country" name="country" id="country" required>
-                <br/>
-                <br/>
-                <label for="nationalId"><b>National Id</b></label>
-                <input type="text" placeholder="Enter National Id" name="nationalId" id="nationalId" required>
-                <br/>
-                <br/>
-                <label for="branch">Branch:</label>
+        $controller::$instance->add_user(); }
+?>
+
+    <div class="register">
+        <form action="" method = "post" class="register-form">
+        <h1> Register </h1> 
+        <p>Please fill in this form to create an account.</p>
+            <hr>
+            <label for="email" class="form-label mt-4"><b>Email</b></label>
+            <input type="email" class="form-control" placeholder="Enter Email" name="email" id="email" required>
+        
+            <label for="phone" class="form-label mt-4"><b>Phone</b></label>
+            <input type="tel" class="form-control" placeholder="Enter Phone Number" name="phone" id="phone" required>
+            
+            <label for="psw" class="form-label mt-4" ><b>Password</b></label>
+            <input type="password" class="form-control" placeholder="Enter Password" name="psw" id="psw" required>
+            
+            <label for="psw-repeat" class="form-label mt-4" ><b>Repeat Password</b></label>
+            <input type="password" class="form-control" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>
+           
+            <label for="firstName" class="form-label mt-4" ><b>First Name</b></label>
+            <input type="text" class="form-control" placeholder="Enter first name" name="firstName" id="firstName" required>
+           
+            <label for="lastName" class="form-label mt-4" ><b>Last Name</b></label>
+            <input type="text" class="form-control" placeholder="Enter last name" name="lastName" id="lastName" required>
+        
+            <label for="city" class="form-label mt-4" ><b>City</b></label>
+            <input type="text" class="form-control" placeholder="Enter city" name="city" id="city" required>
+        
+                <label for="country" class="form-label mt-4" ><b>Country</b></label>
+                <input type="text" class="form-control" placeholder="Enter country" name="country" id="country" required>
+                
+                <label for="nationalId" class="form-label mt-4" ><b>National Id</b></label>
+                <input type="text" class="form-control" placeholder="Enter National Id" name="nationalId" id="nationalId" required>
+                
+                <label for="branch" class="form-label mt-4" >Branch:</label>
                 <select id="branch" name="branch">
                     <option value="B1">B1 West Branch</option>
                     <option value="B2">B2 East Branch</option> 
                     <option value="B3">B3 South Branch</option>     
                     <option value="B4">B4 North Branch</option>                    
                 </select>
-                <br/>
-                <br/>
-                <label for="gender">Gender:</label>
+                &nbsp;
+                <label for="gender" class="form-label mt-4" >Gender:</label>
                 <select id="gender" name="gender">
                     <option value="M">Male</option>
                     <option value="F">Female</option>                
                 </select>
                 <hr>
-
                 <p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
-                <button type="submit" class="registerbtn" name = "btn_register">Register</button>
-            </div>
+                <button type="submit" class="btn btn-primary" name = "btn_register">Register</button>
+            </form> 
+    </div>
 
-            <div class="container signin">
-                <p>Already have an account? <a href="#">Sign in</a>.</p>
-            </div>
-        </form>
-    </div>
-    </div>
+</div> 
+
 </body>
 
 </html>
