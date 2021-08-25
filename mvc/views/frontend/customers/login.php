@@ -28,7 +28,7 @@
         }
         ?>
 
-        <form action="" method = "post" class="sign-in-form">
+        <form method = "post" class="sign-in-form">
          <h1> Sign in </h1> 
          <p>Please fill in this form to log in.</p>
          <hr>
@@ -44,7 +44,7 @@
             <br> </br>
             <a href="#">Forgot Your Password</a>
         <hr>       
-             <button type="submit" id ="sign-in-button" class="btn btn-primary">Sign in</button> 
+             <button name="btn_submit" type="submit" id ="sign-in-button" class="btn btn-primary">Sign in</button> 
             </form>
             </div>
     </div>
