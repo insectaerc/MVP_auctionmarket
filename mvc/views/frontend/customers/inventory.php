@@ -101,19 +101,19 @@
                                             <div class="form-group row">
                                                 <label for="name" class="col-sm-4 col-form-label">Name</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control-plaintext" id="name" name="name" value='<?php echo $entry['name'] ?>'>
+                                                    <input type="text" class="form-control-plaintext" id="name" name="name" value="<?php echo $entry['name'] ?>">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="minPrice" class="col-sm-4 col-form-label">Minimum Bid</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control-plaintext" id="minPrice" name="minPrice" value='<?php echo $entry['minPrice'] ?>'>
+                                                    <input type="text" class="form-control-plaintext" id="minPrice" name="minPrice" value="<?php echo $entry['minPrice'] ?>">
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="closingTime" class="col-sm-4 col-form-label">Close On</label>
                                                 <div class="col-sm-8">
-                                                    <input type="text" class="form-control-plaintext" id="closingTime" name="closingTime" value='<?php echo $entry['closingTime'] ?>'>
+                                                    <input type="text" class="form-control-plaintext" id="closingTime" name="closingTime" value="<?php echo $entry['closingTime'] ?>">
                                                 </div>
                                             </div>
                                         </fieldset>
