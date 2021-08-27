@@ -22,7 +22,7 @@
             <a class="nav-link" href="/MVP_auctionmarket/customer">Profile</a>
             </li>
             <?php 
-            if(isset($_SESSION['id'])){
+            if(isset($_SESSION['customer_id'])){
                 echo "<li class='nav-item'>";
                 echo "<a class='nav-link' href='/MVP_auctionmarket/home/logout'>Log Out</a>";
                 echo "</li>";

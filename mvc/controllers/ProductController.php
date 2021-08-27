@@ -36,5 +36,15 @@
             parent::view('mvc\views\frontend\products\show.php', ['data'=>$data, 'title'=>$title]);
         }
 
+        function update($productID){
+            $name = $_POST['name'];
+            $closingTime = $_POST['closingTime'];
+            $minPrice = $_POST['minPrice'];
+            $data = $this->productModel -> update($productID, $name, $minPrice, $closingTime);
+        }
+
+        function delete($productID){
+            $data = $this->productModel -> destroy($productID);
+        }
     }   
 ?>

@@ -26,6 +26,15 @@ class ProductModel extends MongoDatabase{
         return $data;
     }
 
+    public function findCustomerProduct($ownerIdentifier){
+        $result = $this->collection->find(['ownerID'=>$ownerIdentifier]);
+        $data = [];
+        foreach ($result as $entry) {
+            array_push($data, $entry);
+        }
+        return $data;
+    }
+
     public function findClassifiedProduct($limit, $orderBy, $ascOrDesc){
         $result = $this->collection->find([], ['projection'=>['name'=>1, 'closingTime'=>1,'maxBid'=>1, 'bidNum'=>1],'limit'=>$limit,'sort'=>[$orderBy=>$ascOrDesc]]);
         $data = [];
@@ -42,11 +51,15 @@ class ProductModel extends MongoDatabase{
             'closingTime' => '2021-12-12',
         ]);
     }
-    public function update(){
 
+    public function update($productID, $name, $minPrice, $closingTime){
+        $result = $this->collection->updateOne(['_id'=> new MongoDB\BSON\ObjectId($productID)], ['$set'=>['name'=>$name, 'minPrice'=>$minPrice, 'closingTime'=>$closingTime]]);
+        return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
-    public function destroy(){
-
+    
+    public function destroy($productID){
+        $result = $this->collection->deleteOne(['_id'=> new MongoDB\BSON\ObjectId($productID)]);
+        return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }
 ?>

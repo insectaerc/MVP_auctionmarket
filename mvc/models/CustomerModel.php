@@ -110,7 +110,7 @@ class CustomerModel extends MySQLDatabase
     $account = $data;    
     if ($account['pass'] == $password) {
       print("login successed!");
-      $_SESSION['id']=$id;
+      $_SESSION['customer_id']=$data['customer_id'];
       header("Refresh:0");
     } else {
       print("login failed, wrong password!");

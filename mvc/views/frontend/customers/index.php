@@ -13,6 +13,9 @@
         include 'mvc/views/frontend/nav.php';
     ?>
     Customer Detail Here
+    <a href="/MVP_auctionmarket/customer/inventory">
+    <button>Inventory</button>
+    </a>
 </body>
 
 </html>
