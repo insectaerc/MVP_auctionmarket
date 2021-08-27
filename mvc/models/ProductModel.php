@@ -44,12 +44,16 @@ class ProductModel extends MongoDatabase{
         return $data;
     }
 
-    public function store(){
+    public function store($name, $minPrice, $closingTime, $ownerID){
         $insertOneResult = $this->collection->insertOne([
-            'name' => '5 mins of being God',
-            'minPrice' => '9999999999',
-            'closingTime' => '2021-12-12',
+            'name' => $name,
+            'minPrice' => $minPrice,
+            'closingTime' => $closingTime,
+            'bidNum'=> null,
+            'manBid'=> null,
+            'ownerID' => $ownerID
         ]);
+        return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 
     public function update($productID, $name, $minPrice, $closingTime){

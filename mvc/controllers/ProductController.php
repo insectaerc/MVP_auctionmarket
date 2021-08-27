@@ -18,7 +18,7 @@
         function show($classifyType){
             switch ($classifyType) {
                 case 'endsoon':
-                    $data = $this->productModel -> findClassifiedProduct(12, 'closingTime', 1);
+                    $data = $this->productModel->findClassifiedProduct(12, 'closingTime', 1);
                     $title = 'End Soon';
                     break;
                 case 'highbid':
@@ -35,16 +35,24 @@
             }
             parent::view('mvc\views\frontend\products\show.php', ['data'=>$data, 'title'=>$title]);
         }
-
+        function add(){
+            if(isset($_POST['name']) && isset($_POST['minPrice']) && isset($_POST['closingTime'])){
+                $name = $_POST['name'];
+                $minPrice = $_POST['minPrice'];
+                $closingTime = $_POST['closingTime'];
+                $ownerID = $_SESSION['customer_id'];
+                $this->productModel -> store($name, $minPrice, $closingTime, $ownerID);
+            }
+        }
         function update($productID){
             $name = $_POST['name'];
             $closingTime = $_POST['closingTime'];
             $minPrice = $_POST['minPrice'];
-            $data = $this->productModel -> update($productID, $name, $minPrice, $closingTime);
+            $this->productModel -> update($productID, $name, $minPrice, $closingTime);
         }
 
         function delete($productID){
-            $data = $this->productModel -> destroy($productID);
+            $this->productModel -> destroy($productID);
         }
     }   
 ?>
