@@ -3,17 +3,17 @@
         private $productModel;
         function __construct(){
             //Create ProductModel
-            self::loadModel('mvc\models\ProductModel.php');
+            self::loadModel('mvc/models/ProductModel.php');
             $this->productModel = new ProductModel;
         }
 
         function index(){
             $data = $this->productModel -> getAll();
-            parent::view('mvc\views\frontend\products\index.php', $data);
+            parent::view('mvc/views/frontend/products/index.php', $data);
         }
         function detail($id){
             $data = $this->productModel -> findProduct($id);
-            parent::view('mvc\views\frontend\products\detail.php', $data);
+            parent::view('mvc/views/frontend/products/detail.php', $data);
         }
         function show($classifyType){
             switch ($classifyType) {
@@ -33,7 +33,7 @@
                     echo "cc";
                     break;
             }
-            parent::view('mvc\views\frontend\products\show.php', ['data'=>$data, 'title'=>$title]);
+            parent::view('mvc/views/frontend/products/show.php', ['data'=>$data, 'title'=>$title]);
         }
         function add(){
             if(isset($_POST['name']) && isset($_POST['minPrice']) && isset($_POST['closingTime'])){
