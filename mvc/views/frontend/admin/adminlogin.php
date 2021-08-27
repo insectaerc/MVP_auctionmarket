@@ -1,10 +1,5 @@
-
-
-
-
-
 <?php
-    require 'mvc\views\frontend\nav.php';
+    require 'mvc/views/frontend/nav.php';
     ?>
 
 <?php
