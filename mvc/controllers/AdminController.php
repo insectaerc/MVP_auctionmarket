@@ -8,6 +8,7 @@ class AdminController extends BaseController{
         self::$instance = $this;
         self::loadModel('mvc/models/AdminModel.php');
         $this->adminModel = new AdminModel;
+        
     }
     function index()
     {
@@ -19,6 +20,7 @@ class AdminController extends BaseController{
         }else{
             parent::view('mvc/views/frontend/admin/adminlogin.php');
         }
+        
     }
     
     function check_admin()
@@ -46,4 +48,17 @@ class AdminController extends BaseController{
             }
         }
     }
+    function get_user(){
+        if(isset($_SESSION['email'])){
+            $result = $this->adminModel->getCustomers();
+           
+            $model = $this->adminModel;
+            parent::view('mvc/views/frontend/admin/index.php',$data);
+        }else{
+            parent::view('mvc/views/frontend/admin/adminlogin.php');
+        }
+        
+
+    }
+
 }
