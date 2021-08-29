@@ -49,20 +49,20 @@ class CustomerModel extends MySQLDatabase
     $stmt = $this->db->prepare("INSERT INTO `customers` (`customer_id`,`first_name`,`last_name`,`gender`,`email`,`city`,`country`,`national_id`,`phone`,`pass`,`balance`,`branch_id`) 
     VALUES (:customer_id,:firstName, :lastName,:gender,:email,:city,:country,:national_id,:phone,:pass,:balance,:branch)");
     $stmt->execute([
-      'customer_id' => $newId, 
+      'customer_id' => $newId,
       'firstName' => $obj['first_name'],
-      'lastName'=> $obj['last_name'],
-      'gender' =>$obj['gender'],
+      'lastName' => $obj['last_name'],
+      'gender' => $obj['gender'],
       'email' => $obj['email'],
       'city' => $obj['city'],
       'country' => $obj['country'],
-      'national_id'=> $obj['national_id'],
+      'national_id' => $obj['national_id'],
       'phone' => $obj['phone'],
-      'pass' =>$obj['pass'],
+      'pass' => $obj['pass'],
       'balance' => $obj['balance'],
       'branch' => $obj['branch']
 
-  ]);  
+    ]);
     //$data = $stmt->fetch();
   }
   //update Customer  
@@ -77,14 +77,14 @@ class CustomerModel extends MySQLDatabase
   public function getCustomers()
   {
     $sqlStatement = "SELECT * FROM customers";
-    try {    
+    try {
       $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $data = [];
       foreach ($this->db->query($sqlStatement) as $row) {
         array_push($data, $row);
         //print $v;
       }
-      $data =array_values($data);
+      $data = array_values($data);
       return $data;
     } catch (PDOException $e) {
 
@@ -93,28 +93,38 @@ class CustomerModel extends MySQLDatabase
   }
 
   public function getCustomerById($id)
+  { 
+    $stmt = $this->db->prepare("SELECT * FROM customers WHERE customer_id=:id");
+    $stmt->execute(['id' => $id]);
+    $data = $stmt->fetch(PDO::FETCH_ASSOC);
+    $js_code = 'console.log(' . json_encode($data, JSON_HEX_TAG) .
+      ');';
+    $js_code = '<script>' . $js_code . '</script>';
+    echo $js_code;
+    return $data;
+  }
+  public function getCustomerByPhoneOrEmail($username)
   {
     $stmt = $this->db->prepare("SELECT * FROM customers WHERE email=:id OR phone=:id");
-    $stmt->execute(['id' => $id]);  
+    $stmt->execute(['id' => $username]);
     $data = $stmt->fetch();
     return $data;
   }
-
   public function check_user($id, $password)
   {
-    $data = $this->getCustomerById($id);
+    $data = $this->getCustomerByPhoneOrEmail($id);
     if ($data == null) {
       print("No user name existed");
       return;
     }
-    $account = $data;    
+    $account = $data;
     if ($account['pass'] == $password) {
       print("login successed!");
-      $_SESSION['customer_id']=$data['customer_id'];
+      $_SESSION['customer_id'] = $data['customer_id'];
+
       header("Refresh:0");
     } else {
       print("login failed, wrong password!");
     }
   }
-
 }
