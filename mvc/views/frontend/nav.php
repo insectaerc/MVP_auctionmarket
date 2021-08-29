@@ -9,10 +9,10 @@
             <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Category</a>
             <div class="dropdown-menu">
-                <a class="dropdown-item" href="#">Paintings</a>
+                <!-- <a class="dropdown-item" href="#">Paintings</a>
                 <a class="dropdown-item" href="#">Photographs</a>
                 <a class="dropdown-item" href="#">Prints</a>
-                <div class="dropdown-divider"></div>
+                <div class="dropdown-divider"></div> -->
                 <a class="dropdown-item" href="/MVP_auctionmarket/product/show/endsoon">End Soon</a>
                 <a class="dropdown-item" href="/MVP_auctionmarket/product/show/highbid">High Bids</a>
                 <a class="dropdown-item" href="/MVP_auctionmarket/product/show/mostbidded">Most Bidded</a>

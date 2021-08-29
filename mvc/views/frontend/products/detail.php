@@ -10,26 +10,83 @@
 <body>
     <?php 
         require 'mvc/views/frontend/nav.php';
+        $product = $data[0];
     ?>
     <div class= 'row mx-5'>
-        <?php
-        foreach ($data as $entry){
-            echo "<div class='col text-center' style='height:500px'>";
-            echo     "<img style='height:500px'src='/MVP_auctionmarket/public/images/dollarsign.jpg' alt='missing image I dont know why'>
-            </div>";
-            echo "<div class='col'>";
-            echo    "<h2>{$entry['name']}</h2>";
-            echo    "<p>Product Information: blabla</p>";
-            echo    "<br>";
-            echo    "<h4>Starting Bid: $";
-            echo    "{$entry['minPrice']}</h4>";
-            echo    "<h4>Current Bid: $";
-            echo    "{$entry['maxBid']}</h4>";
+        <div class='col text-center' style='height:500px'>
+            <img style='height:500px'src='/MVP_auctionmarket/public/images/dollarsign.jpg' alt='missing image I dont know why'>
+        </div>
+        <div class='col'>
+            <h2><?php echo $product['name'] ?></h2>
+            <p>Product Information: blabla</p>
+            <br>
+            <div class='row'>
+                <div class='col'>
+                    <h4>Minimum Bid:</h4>
+                </div>
+                <div class='col'>
+                    <h4>$<?php echo $product['minPrice'] ?></h4>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col'>
+                    <h4>Current Highest Bid:</h4>
+                </div>
+                <div class='col'>
+                    <h4>$<?php echo $product['maxBid'] ?></h4>
+                </div>
+            </div>
+            
+            <button name='bid_button' type='button' class='btn btn-success' data-toggle='modal' data-target='#biddingModal' data-toggle='tooltip' data-placement='bottom' title='Start bidding for this item'>Bid</button>
 
-            echo    "<button type='button' class='btn btn-success'>Bid</button>";
-            echo "</div>";
-        }
-        ?>
+            <?php
+                if(isset($_SESSION['message'])){
+                    echo "<div class='alert alert-dismissible alert-warning mt-5'>";
+                    echo "<button type='button' class='btn-close' data-dismiss='alert'></button>";
+                    echo "<h4 class='alert-heading'>We are sorry!</h4>";
+                    echo "<p class='mb-0'>{$_SESSION['message']}</p>";
+                    echo "</div>";
+                    unset($_SESSION["message"]);
+                }
+            ?>
+
+            <!-- Bidding Model -->
+            <div class="modal" id="biddingModal">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Bidding Form</h5>
+                            <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true"></span>
+                            </button>
+                        </div>
+                        <form action="/MVP_auctionmarket/product/bid/<?php echo $product['_id']?>" method="post">
+                            <div class="modal-body">
+                                <fieldset>
+                                    <legend>How much do you want to bid?</legend>
+                                    <div class="form-group row">
+                                        <label for="currentBid" class="col-sm-5 col-form-label">Current Highest Bid:</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control-plaintext" id="currentBid" name="currentBid" value="<?php echo $product['maxBid'] ?>" disabled>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <label for="amount" class="col-sm-5 col-form-label">Your Bid:</label>
+                                        <div class="col-sm-7">
+                                            <input type="text" class="form-control-plaintext" id="amount" name="amount" placeholder="Enter the amount of money (USD)" required>
+                                        </div>
+                                    </div>
+                                </fieldset>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-success" name='bid_confirm_btn'>Confirm</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

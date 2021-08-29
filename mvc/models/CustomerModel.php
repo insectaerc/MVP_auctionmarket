@@ -114,7 +114,11 @@ class CustomerModel extends MySQLDatabase
   {
     $data = $this->getCustomerByPhoneOrEmail($id);
     if ($data == null) {
-      print("No user name existed");
+      echo "<div class='alert alert-dismissible alert-warning mt-5'>";
+      echo "<button type='button' class='btn-close' data-dismiss='alert'></button>";
+      echo "<h4 class='alert-heading'>We are sorry!</h4>";
+      echo "<p class='mb-0'>No username existed.</p>";
+      echo "</div>";
       return;
     }
     $account = $data;

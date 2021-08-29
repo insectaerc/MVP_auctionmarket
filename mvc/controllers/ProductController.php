@@ -54,5 +54,34 @@
         function delete($productID){
             $this->productModel -> destroy($productID);
         }
+
+        function bid($productID){
+            if(isset($_POST['amount'])){
+                include 'mvc\models\CustomerModel.php';
+                $customerModel = new CustomerModel;
+                $customer = $customerModel->getCustomerById($_SESSION['customer_id']);
+                if($customer['balance'] < $_POST['amount']){
+                    $_SESSION['message'] = "Your account's balance is too low for this bid.";
+                    header('Location: ' . $_SERVER['HTTP_REFERER']);
+                }else {
+                    $productModel = new ProductModel;
+                    $result = $productModel->findProduct($productID);
+                    $product = $result[0];
+                    if($_POST['amount'] < $product['minPrice']){
+                        $_SESSION['message'] = "Your bid must be bigger than the minimum bid.";
+                        header('Location: ' . $_SERVER['HTTP_REFERER']);
+                    }else{
+                        echo "checking max current bid";
+                        //gọi TransactionModel
+                        //gọi findHighestBid($transactionID) (sql statement: select max(amount) from transaction where productID = ..
+                        //so sanh $_POST['amount'] voi ket qua query o tren
+                        //if($_POST['amount] < $result) -> "Your bid must be bigger than the current highest bid"
+                        //else ->
+                            //gọi createTransaction()
+                            //gọi customerModel của bidder và owner và update balance
+                    }
+                }
+            }
+        }
     }   
 ?>

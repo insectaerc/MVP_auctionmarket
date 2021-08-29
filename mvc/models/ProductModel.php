@@ -57,12 +57,12 @@ class ProductModel extends MongoDatabase{
     }
 
     public function update($productID, $name, $minPrice, $closingTime){
-        $result = $this->collection->updateOne(['_id'=> new MongoDB\BSON\ObjectId($productID)], ['$set'=>['name'=>$name, 'minPrice'=>$minPrice, 'closingTime'=>$closingTime]]);
+        $this->collection->updateOne(['_id'=> new MongoDB\BSON\ObjectId($productID)], ['$set'=>['name'=>$name, 'minPrice'=>$minPrice, 'closingTime'=>$closingTime]]);
         return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
     
     public function destroy($productID){
-        $result = $this->collection->deleteOne(['_id'=> new MongoDB\BSON\ObjectId($productID)]);
+        $this->collection->deleteOne(['_id'=> new MongoDB\BSON\ObjectId($productID)]);
         return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }
