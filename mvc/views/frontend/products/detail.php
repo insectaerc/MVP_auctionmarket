@@ -36,8 +36,22 @@
                     <h4>$<?php echo $product['maxBid'] ?></h4>
                 </div>
             </div>
-            
-            <button name='bid_button' type='button' class='btn btn-success' data-toggle='modal' data-target='#biddingModal' data-toggle='tooltip' data-placement='bottom' title='Start bidding for this item'>Bid</button>
+            <?php
+            if(isset($_SESSION['customer_id'])){
+                echo "<button name='bid_button' type='button' class='btn btn-success' data-toggle='modal' data-target='#biddingModal' data-toggle='tooltip' data-placement='bottom' title='Start bidding for this item'>Bid</button>";
+            }else{
+                echo "<button type='button' class='btn btn-success' data-toggle='tooltip' data-placement='bottom' title='Start bidding for this item'>Bid</button>";
+            }
+            ?>
+            <?php
+            if(isset($_SESSION['customer_id']) == false){
+                echo "<div class='alert alert-dismissible alert-info' id='plsLoginModal'>";
+                echo "<button type='button' class='btn-close' data-dismiss='alert'></button>";
+                echo "<h4 class='alert-heading'>Caution!</h4>";
+                echo "<p class='mb-0'>Please go to 'Profile' page and Sign-in or Register (if you haven't gotten any account) first if you want to bid for this item.</p>";
+                echo "</div>";
+            }
+            ?>
 
             <?php
                 if(isset($_SESSION['message'])){
