@@ -15,7 +15,7 @@
             //fetch Product Information (name, minBid, closingTime)
             $data = $this->productModel -> findProduct($id);
             $product=$data[0];
-            $minBid = $product['minPrice'];
+            $minBid = $product['minBid'];
 
             //fetch current highestBid
             self::loadModel('mvc\models\TransactionModel.php');
@@ -51,19 +51,19 @@
             parent::view('mvc/views/frontend/products/show.php', ['data'=>$data, 'title'=>$title]);
         }
         function add(){
-            if(isset($_POST['name']) && isset($_POST['minPrice']) && isset($_POST['closingTime'])){
+            if(isset($_POST['name']) && isset($_POST['minBid']) && isset($_POST['closingTime'])){
                 $name = $_POST['name'];
-                $minPrice = $_POST['minPrice'];
+                $minBid = $_POST['minBid'];
                 $closingTime = $_POST['closingTime'];
                 $ownerID = $_SESSION['customer_id'];
-                $this->productModel -> store($name, $minPrice, $closingTime, $ownerID);
+                $this->productModel -> store($name, $minBid, $closingTime, $ownerID);
             }
         }
         function update($productID){
             $name = $_POST['name'];
             $closingTime = $_POST['closingTime'];
-            $minPrice = $_POST['minPrice'];
-            $this->productModel -> update($productID, $name, $minPrice, $closingTime);
+            $minBid = $_POST['minBid'];
+            $this->productModel -> update($productID, $name, $minBid, $closingTime);
         }
 
         function delete($productID){
@@ -81,8 +81,8 @@
                     $productModel = new ProductModel;
                     $result = $productModel->findProduct($productID);
                     $product = $result[0];
-                    if($_POST['amount'] < $product['minPrice']){
-                        $_SESSION['message'] = "Your bid must be higher than the minimum bid.";
+                    if($_POST['amount'] < $product['minBid']){
+                        $_SESSION['message'] = "Your bid must be higher than the minimum bid and the current highest bid.";
                     }else{
                         echo "checking max current bid";
 
@@ -96,7 +96,7 @@
                         $currentBid = (double)$value[0];
                         if($_POST['amount'] > $currentBid){
                             $model->createTransaction($productID, $product['ownerID'], $_SESSION['customer_id'], $_POST['amount']);
-
+                            
                             //then update balance of both bidder and owner
                             
                         }else{

@@ -36,7 +36,7 @@ class ProductModel extends MongoDatabase{
     }
 
     public function findClassifiedProduct($limit, $orderBy, $ascOrDesc){
-        $result = $this->collection->find([], ['projection'=>['name'=>1, 'closingTime'=>1,'maxBid'=>1, 'bidNum'=>1],'limit'=>$limit,'sort'=>[$orderBy=>$ascOrDesc]]);
+        $result = $this->collection->find([], ['projection'=>['name'=>1, 'closingTime'=>1,'minBid'=>1, 'bidNum'=>1],'limit'=>$limit,'sort'=>[$orderBy=>$ascOrDesc]]);
         $data = [];
         foreach ($result as $entry) {
             array_push($data, $entry);
@@ -44,20 +44,20 @@ class ProductModel extends MongoDatabase{
         return $data;
     }
 
-    public function store($name, $minPrice, $closingTime, $ownerID){
+    public function store($name, $minBid, $closingTime, $ownerID){
         $insertOneResult = $this->collection->insertOne([
             'name' => $name,
-            'minPrice' => $minPrice,
+            'minBid' => $minBid,
             'closingTime' => $closingTime,
             'bidNum'=> null,
-            'manBid'=> null,
+            'maxBid'=> null,
             'ownerID' => $ownerID
         ]);
         return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 
-    public function update($productID, $name, $minPrice, $closingTime){
-        $this->collection->updateOne(['_id'=> new MongoDB\BSON\ObjectId($productID)], ['$set'=>['name'=>$name, 'minPrice'=>$minPrice, 'closingTime'=>$closingTime]]);
+    public function update($productID, $name, $minBid, $closingTime){
+        $this->collection->updateOne(['_id'=> new MongoDB\BSON\ObjectId($productID)], ['$set'=>['name'=>$name, 'minBid'=>$minBid, 'closingTime'=>$closingTime]]);
         return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
     

@@ -25,7 +25,7 @@
                     <h4>Minimum Bid:</h4>
                 </div>
                 <div class='col'>
-                    <h4>$<?php echo $product['minPrice'] ?></h4>
+                    <h4>$<?php echo $product['minBid'] ?></h4>
                 </div>
             </div>
             <div class='row'>
