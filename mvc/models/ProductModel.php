@@ -45,12 +45,13 @@ class ProductModel extends MongoDatabase{
     }
 
     public function store($name, $minBid, $closingTime, $ownerID){
+        $minBid = (double)$minBid;
         $insertOneResult = $this->collection->insertOne([
             'name' => $name,
             'minBid' => $minBid,
             'closingTime' => $closingTime,
-            'bidNum'=> null,
-            'maxBid'=> null,
+            'bidNum'=> 0,
+            'highestBid'=> $minBid,
             'ownerID' => $ownerID
         ]);
         return header('Location: ' . $_SERVER['HTTP_REFERER']);
@@ -58,6 +59,11 @@ class ProductModel extends MongoDatabase{
 
     public function update($productID, $name, $minBid, $closingTime){
         $this->collection->updateOne(['_id'=> new MongoDB\BSON\ObjectId($productID)], ['$set'=>['name'=>$name, 'minBid'=>$minBid, 'closingTime'=>$closingTime]]);
+        return header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+
+    public function updateBidding($productID, $bidNum, $highestBid){
+        $this->collection->updateOne(['_id'=> new MongoDB\BSON\ObjectId($productID)], ['$set'=>['bidNum'=>$bidNum, 'highestBid'=>$highestBid]]);
         return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
     

@@ -65,9 +65,13 @@ class CustomerModel extends MySQLDatabase
     ]);
     //$data = $stmt->fetch();
   }
-  //update Customer  
-  public function updateCustomer($obj)
+  //update Customer's Balance
+  public function updateBalanceOfCustomer($balance, $customer_id)
   {
+    $sqlStatement = "UPDATE customers SET balance = :balance WHERE customer_id = :customer_id";
+    $stmt = $this->db->prepare($sqlStatement);
+    $stmt->execute(['balance' => $balance, 'customer_id' => $customer_id]);
+    return;
   }
   // delete Customer  
   public function deleteCustomer($id)

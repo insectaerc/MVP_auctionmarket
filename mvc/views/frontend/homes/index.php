@@ -48,9 +48,9 @@
                 echo        "</a>";
                 echo        "<div class='row'>";
                 echo            "<div class='col'>";
-                echo                "<p>Current Bid: <br>";
+                echo                "<p>Minimum Bid: <br>";
                 echo                '$';
-                echo                "{$entry['maxBid']}</p>";
+                echo                "{$entry['minBid']}</p>";
                 echo                "<p>Close on: <br>{$entry['closingTime']}</p>";
                 echo            "</div>";
                 echo            "<div class='col d-flex align-items-center'>";
@@ -74,9 +74,9 @@
                 echo        "</a>";
                 echo        "<div class='row'>";
                 echo            "<div class='col'>";
-                echo                "<p>Current Bid: <br>";
+                echo                "<p>Minimum Bid: <br>";
                 echo                "$";
-                echo                "{$entry['maxBid']}</p>";
+                echo                "{$entry['minBid']}</p>";
                 echo                "<p>Close on: <br>{$entry['closingTime']}</p>";
                 echo            "</div>";
                 echo            "<div class='col d-flex align-items-center'>";

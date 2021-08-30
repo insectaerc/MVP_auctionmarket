@@ -95,18 +95,25 @@
                         $value = array_values($result);
                         $currentBid = (double)$value[0];
                         if($_POST['amount'] > $currentBid){
+
+                            //Create Transaction
                             $model->createTransaction($productID, $product['ownerID'], $_SESSION['customer_id'], $_POST['amount']);
                             
-                            //then update balance of both bidder and owner
+                            //Update balance of both bidder and owner
+                            $bidder['balance'] = $bidder['balance'] - $_POST['amount'];
+                            $customerModel->updateBalanceOfCustomer($bidder['balance'], $bidder['customer_id']);
                             
+                            $owner = $customerModel->getCustomerById($product['ownerID']);
+                            $owner['balance'] = $owner['balance'] + $_POST['amount'];
+                            $customerModel->updateBalanceOfCustomer($owner['balance'], $owner['customer_id']);
+                            
+                            //Update product's bidNum + highestBid
+                            $product['bidNum'] = $product['bidNum'] + 1;
+                            $_POST['amount'] = (double)$_POST['amount'];
+                            $this->productModel->updateBidding($productID, $product['bidNum'], $_POST['amount']);
                         }else{
                             $_SESSION['message'] = "Your bid must be higher than the current highest bid.";
                         }
-
-                        //if($_POST['amount] < $result) -> "Your bid must be higher than the current highest bid"
-                        //else ->
-                            //gọi createTransaction()
-                            //gọi customerModel của bidder và owner và update balance
                     }
                 }
             }
