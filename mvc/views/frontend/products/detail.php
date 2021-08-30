@@ -33,7 +33,7 @@
                     <h4>Current Highest Bid:</h4>
                 </div>
                 <div class='col'>
-                    <h4>$<?php echo $product['maxBid'] ?></h4>
+                    <h4>$<?php echo $highestBid ?></h4>
                 </div>
             </div>
             <?php

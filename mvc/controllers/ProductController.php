@@ -12,8 +12,18 @@
             parent::view('mvc/views/frontend/products/index.php', $data);
         }
         function detail($id){
+            //fetch Product Information (name, minBid, closingTime)
             $data = $this->productModel -> findProduct($id);
-            parent::view('mvc/views/frontend/products/detail.php', $data);
+
+            //fetch current highestBid
+            self::loadModel('mvc\models\TransactionModel.php');
+            $transactionModel = new TransactionModel;
+            $highestBidArr = $transactionModel->getHighestBid($id);
+            $highestBid = array_values($highestBidArr);
+            $highestBid = (double)$highestBid[0];
+
+            //Push data to detail page
+            parent::view('mvc/views/frontend/products/detail.php', ['data'=>$data, 'highestBid'=>$highestBid]);
         }
         function show($classifyType){
             switch ($classifyType) {
@@ -57,31 +67,45 @@
 
         function bid($productID){
             if(isset($_POST['amount'])){
-                include 'mvc\models\CustomerModel.php';
+                self::loadModel('mvc\models\CustomerModel.php');
                 $customerModel = new CustomerModel;
-                $customer = $customerModel->getCustomerById($_SESSION['customer_id']);
-                if($customer['balance'] < $_POST['amount']){
+                $bidder = $customerModel->getCustomerById($_SESSION['customer_id']);
+                if($bidder['balance'] < $_POST['amount']){
                     $_SESSION['message'] = "Your account's balance is too low for this bid.";
-                    header('Location: ' . $_SERVER['HTTP_REFERER']);
                 }else {
                     $productModel = new ProductModel;
                     $result = $productModel->findProduct($productID);
                     $product = $result[0];
                     if($_POST['amount'] < $product['minPrice']){
-                        $_SESSION['message'] = "Your bid must be bigger than the minimum bid.";
-                        header('Location: ' . $_SERVER['HTTP_REFERER']);
+                        $_SESSION['message'] = "Your bid must be higher than the minimum bid.";
                     }else{
                         echo "checking max current bid";
+
                         //gọi TransactionModel
-                        //gọi findHighestBid($transactionID) (sql statement: select max(amount) from transaction where productID = ..
+                        //gọi findHighestBid($productID) (sql statement: select max(amount) from transaction where productID = ..
+                        self::loadModel('mvc\models\TransactionModel.php');
+                        $model = new TransactionModel;
+                        $result = $model->getHighestBid($productID);
                         //so sanh $_POST['amount'] voi ket qua query o tren
-                        //if($_POST['amount] < $result) -> "Your bid must be bigger than the current highest bid"
+                        $value = array_values($result);
+                        $currentBid = (double)$value[0];
+                        if($_POST['amount'] > $currentBid){
+                            $model->createTransaction($productID, $product['ownerID'], $_SESSION['customer_id'], $_POST['amount']);
+
+                            //then update balance of both bidder and owner
+                            
+                        }else{
+                            $_SESSION['message'] = "Your bid must be higher than the current highest bid.";
+                        }
+
+                        //if($_POST['amount] < $result) -> "Your bid must be higher than the current highest bid"
                         //else ->
                             //gọi createTransaction()
                             //gọi customerModel của bidder và owner và update balance
                     }
                 }
             }
+            header('Location: ' . $_SERVER['HTTP_REFERER']);
         }
     }   
 ?>

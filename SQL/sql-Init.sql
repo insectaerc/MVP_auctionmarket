@@ -40,6 +40,18 @@ CREATE TABLE customers
     FOREIGN KEY (branch_id) REFERENCES branches (branch_id)
 );
 
+CREATE TABLE transactions
+(
+	transaction_id	INT 			NOT NULL,
+	product_id		VARCHAR(30) NOT NULL,
+	owner_id			INT 			NOT NULL,
+	bidder_id		INT 			NOT NULL,
+	amount			NUMERIC,
+	PRIMARY KEY (transaction_id),
+	FOREIGN KEY (owner_id) REFERENCES customers (customer_id),
+	FOREIGN KEY (bidder_id) REFERENCES customers (customer_id)
+);
+
 INSERT INTO `branches` (`branch_id`,`branch_name`,`branch_phone`,`branch_address`) VALUES 
 ("B1","West Branch","(02) 3699 2373","P.O. Box 992, 7935 Ornare Road"),
 ("B2","East Branch","(09) 5345 3753","7715 Sociis St."),
