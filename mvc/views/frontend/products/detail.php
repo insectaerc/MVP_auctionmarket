@@ -81,7 +81,7 @@
                                     <div class="form-group row">
                                         <label for="currentBid" class="col-sm-5 col-form-label">Current Highest Bid:</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control-plaintext" id="currentBid" name="currentBid" value="<?php echo $product['maxBid'] ?>" disabled>
+                                            <input type="text" class="form-control-plaintext" id="currentBid" name="currentBid" value="<?php echo $highestBid ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">

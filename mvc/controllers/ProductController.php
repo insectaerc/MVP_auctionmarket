@@ -14,6 +14,8 @@
         function detail($id){
             //fetch Product Information (name, minBid, closingTime)
             $data = $this->productModel -> findProduct($id);
+            $product=$data[0];
+            $minBid = $product['minPrice'];
 
             //fetch current highestBid
             self::loadModel('mvc\models\TransactionModel.php');
@@ -21,6 +23,9 @@
             $highestBidArr = $transactionModel->getHighestBid($id);
             $highestBid = array_values($highestBidArr);
             $highestBid = (double)$highestBid[0];
+            if ($highestBid < $minBid){
+                $highestBid = $minBid;
+            }
 
             //Push data to detail page
             parent::view('mvc/views/frontend/products/detail.php', ['data'=>$data, 'highestBid'=>$highestBid]);
