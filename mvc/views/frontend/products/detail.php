@@ -87,7 +87,7 @@
                                     <div class="form-group row">
                                         <label for="amount" class="col-sm-5 col-form-label">Your Bid:</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control-plaintext" id="amount" name="amount" placeholder="Enter the amount of money (USD)" required>
+                                            <input type="number" step=0.01 min=0 class="form-control-plaintext" id="amount" name="amount" placeholder="Enter the amount of money (USD)" required>
                                         </div>
                                     </div>
                                 </fieldset>

@@ -15,7 +15,7 @@
             //fetch Product Information (name, minBid, closingTime)
             $data = $this->productModel -> findProduct($id);
             $product=$data[0];
-            $minBid = $product['minBid'];
+            $minBid = (double)$product['minBid'];
 
             //fetch current highestBid
             self::loadModel('mvc\models\TransactionModel.php');
@@ -75,6 +75,10 @@
                 self::loadModel('mvc\models\CustomerModel.php');
                 $customerModel = new CustomerModel;
                 $bidder = $customerModel->getCustomerById($_SESSION['customer_id']);
+
+                $bidder['balance'] = (double)$bidder['balance'];
+                $_POST['amount'] = (double)$_POST['amount'];
+                
                 if($bidder['balance'] < $_POST['amount']){
                     $_SESSION['message'] = "Your account's balance is too low for this bid.";
                 }else {
@@ -84,17 +88,15 @@
                     if($_POST['amount'] < $product['minBid']){
                         $_SESSION['message'] = "Your bid must be higher than the minimum bid and the current highest bid.";
                     }else{
-                        echo "checking max current bid";
-
                         //gọi TransactionModel
-                        //gọi findHighestBid($productID) (sql statement: select max(amount) from transaction where productID = ..
+                        //gọi getHighestBid($productID)
                         self::loadModel('mvc\models\TransactionModel.php');
                         $model = new TransactionModel;
                         $result = $model->getHighestBid($productID);
                         //so sanh $_POST['amount'] voi ket qua query o tren
                         $value = array_values($result);
-                        $currentBid = (double)$value[0];
-                        if($_POST['amount'] > $currentBid){
+                        $currentHighestBid = (double)$value[0];
+                        if($_POST['amount'] > $currentHighestBid){
 
                             //Create Transaction
                             $model->createTransaction($productID, $product['ownerID'], $_SESSION['customer_id'], $_POST['amount']);

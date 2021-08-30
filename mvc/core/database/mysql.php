@@ -3,9 +3,9 @@ class MySQLDatabase{
     public function connect(){
         
 
-        $servername = "localhost:3307";
+        $servername = "localhost:3306";
         $username = "root";
-        $password = "Admin3198";
+        $password = "";
         $dbname = "auctionmarket";
 
         // Create connection
