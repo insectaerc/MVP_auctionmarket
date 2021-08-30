@@ -20,18 +20,17 @@
     <div class="form-container">
         <div class= "signin">
 
-        <?php
+        <form method = "post" class="sign-in-form">
+         <h1> Sign in </h1> 
+         <p>Please fill in this form to log in.</p>
+         <hr>
+         <?php
         //echo "This is Button1 that is selected";
         $controller = CustomerController::$instance;
         if (isset($_POST['btn_submit'])) {
             $controller::$instance->check_user();
         }
         ?>
-
-        <form method = "post" class="sign-in-form">
-         <h1> Sign in </h1> 
-         <p>Please fill in this form to log in.</p>
-         <hr>
             <label for="uname" class="form-label mt-4" > Username </label>
             <input type="text" class="form-control"  placeholder="Enter username" name ="username"required>
                 

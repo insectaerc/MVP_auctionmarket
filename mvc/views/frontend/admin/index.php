@@ -2,30 +2,48 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
 </head>
 
 <body>
-<?php
-if($_SESSION["email"]) {
-?>
-Welcome <?php echo $_SESSION["email"]; ?>. Click here to <a href="logout.php" tite="Logout">Logout.
-<?php
-}else echo "<h1>Please login first .</h1>";
-?>
-
-    <?php 
-        include 'mvc/views/frontend/nav.php';
+<?php 
+        include 'mvc/views/frontend/navadmin.php';
     ?>
-
-
-</html>
+<br> </br>
 <h1 align="center"> ADMIN DASHBOARD </h1>
 
-    
+<!-- //Customer Info Management -->
+
+<div class="card border-light text-dark mb-3 mx-4">
+<div class="card border-primary mb-3" style="max-width: 20rem;">
+  <div class="card-header">Customer Information</div>
+  <div class="card-body">
+    <h4 class="card-title">Primary card title</h4>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+  <div class="d-grid gap-2">
+  <a href="/MVP_auctionmarket/admin/info"a>
+  <button class="btn btn-lg btn-primary" name = "info_btn" type="button">Click here</button>
+</a>
+  </div>
+  </div>
+  <!-- //Transaction Management -->
+
+  <div class="card border-info mb-3" style="max-width: 20rem;">
+  <div class="card-header">Transaction</div>
+  <div class="card-body">
+    <h4 class="card-title">Info card title</h4>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  </div>
+
+  <button class="btn btn-lg btn-primary" name = "transaction_btn" type="button">Click here</button>
+
+  </div>
+
+
     </body>
     
     </html>

@@ -26,8 +26,8 @@ class ProductModel extends MongoDatabase{
         return $data;
     }
 
-    public function findClassifiedProduct($limit, $orderBy, $ascOrDesc){
-        $result = $this->collection->find([], ['projection'=>['name'=>1, 'closingTime'=>1,'maxBid'=>1, 'bidNum'=>1],'limit'=>$limit,'sort'=>[$orderBy=>$ascOrDesc]]);
+    public function findCustomerProduct($ownerIdentifier){
+        $result = $this->collection->find(['ownerID'=>$ownerIdentifier]);
         $data = [];
         foreach ($result as $entry) {
             array_push($data, $entry);
@@ -35,18 +35,41 @@ class ProductModel extends MongoDatabase{
         return $data;
     }
 
-    public function store(){
+    public function findClassifiedProduct($limit, $orderBy, $ascOrDesc){
+        $result = $this->collection->find([], ['projection'=>['name'=>1, 'closingTime'=>1,'minBid'=>1, 'highestBid'=>1, 'bidNum'=>1],'limit'=>$limit,'sort'=>[$orderBy=>$ascOrDesc]]);
+        $data = [];
+        foreach ($result as $entry) {
+            array_push($data, $entry);
+        }
+        return $data;
+    }
+
+    public function store($name, $minBid, $closingTime, $ownerID){
+        $minBid = (double)$minBid;
         $insertOneResult = $this->collection->insertOne([
-            'name' => '5 mins of being God',
-            'minPrice' => '9999999999',
-            'closingTime' => '2021-12-12',
+            'name' => $name,
+            'minBid' => $minBid,
+            'closingTime' => $closingTime,
+            'bidNum'=> 0,
+            'highestBid'=> $minBid,
+            'ownerID' => $ownerID
         ]);
+        return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
-    public function update(){
 
+    public function update($productID, $name, $minBid, $closingTime){
+        $this->collection->updateOne(['_id'=> new MongoDB\BSON\ObjectId($productID)], ['$set'=>['name'=>$name, 'minBid'=>$minBid, 'closingTime'=>$closingTime]]);
+        return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
-    public function destroy(){
 
+    public function updateBidding($productID, $bidNum, $highestBid){
+        $this->collection->updateOne(['_id'=> new MongoDB\BSON\ObjectId($productID)], ['$set'=>['bidNum'=>$bidNum, 'highestBid'=>$highestBid]]);
+        return header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+    
+    public function destroy($productID){
+        $this->collection->deleteOne(['_id'=> new MongoDB\BSON\ObjectId($productID)]);
+        return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }
 ?>

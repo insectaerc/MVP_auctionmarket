@@ -1,5 +1,5 @@
 <?php
-    require 'mvc/views/frontend/nav.php';
+    require 'mvc/views/frontend/navadmin.php';
     ?>
 
 <?php
@@ -19,6 +19,7 @@
 	<link href="../css/bootstrap.css" rel="stylesheet" type="text/css" media="all" />
 </head>
 <body>
+	<br> </br>
 	<h2 align="center">Admin Login Page </h2>
 	<div class="col-md-6">
 	<div class="form-group">

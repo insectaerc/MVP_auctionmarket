@@ -6,26 +6,17 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Admin</title>
 </head>
 
 <body>
-<?php
-if($_SESSION["email"]) {
-?>
-Welcome <?php echo $_SESSION["email"]; ?>. Click here to <a href="logout.php" tite="Logout">Logout.
-<?php
-}else echo "<h1>Please login first .</h1>";
-?>
 
-    <?php 
-        include 'mvc/views/frontend/nav.php';
+<?php 
+        include 'mvc/views/frontend/navadmin.php';
     ?>
-
-
-</html>
-    
-    <h1 align="center"> List of Customers </h1>
+<br> </br>
+    <h1 align="center"> Customers Information </h1>
     <table class="table table-hover">
     <thead>
     <tr>
@@ -33,11 +24,11 @@ Welcome <?php echo $_SESSION["email"]; ?>. Click here to <a href="logout.php" ti
     <th scope="col">Email</th>
     <th scope="col">Phone Number</th>
     <th scope="col">Account Balance</th>
-    <th scope="col"></th>
+    <th scope="col">Action</th>
     </tr>
     </thead>
     <tbody>
-    <?php // VỊ TRÍ 02: CODE HIỂN THỊ NGƯỜI DÙNG ?>
+    <?php // CODE HIỂN THỊ NGƯỜI DÙNG ?>
     <?php foreach ($data as $entry){ ?>
         <tr>
         <td> <?php echo $entry['customer_id']; ?></td>
@@ -45,14 +36,27 @@ Welcome <?php echo $_SESSION["email"]; ?>. Click here to <a href="logout.php" ti
         <td><?php echo $entry['phone']; ?></td>
         <td><?php echo "$", $entry['balance']; ?></td>
         <td>
-        <label class="btn btn-outline-primary" for="btnradio1">Delete</label>
-            <input type="radio" class="btn-check" name="btnradio" id="btnradio2" >
-            <label class="btn btn-outline-primary" for="btnradio2">Edit</label> </td>
-                </td>
-                </tr>
-                <?php } ?>
+        <label class="btn btn-outline-primary" name= dlt_btn for="btnradio1">Delete</label>
+        <label class="btn btn-outline-primary" name= edit_btn for="btnradio2">Edit</label> </td>
+        
+        </tr>
+    <?php } ?>
+
     </tbody>
     </table>
+
+    <?php
+        //echo "This is Button1 that is selected";
+        $controller = CustomerController::$instance;
+        if (isset($_POST['eedit_btn'])) {
+            $controller::$instance->updateBalanceOfCustomer();
+        }
+        ?>
+    <div class="input-group mb-3">
+      <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+      <button class="btn btn-primary" type="button" id="button-addon2">Button</button>
+    </div>
+
     </body>
     
     </html>

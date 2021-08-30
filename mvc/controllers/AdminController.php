@@ -60,5 +60,23 @@ class AdminController extends BaseController{
         
     }
    
+    function edit(){
+        
+        if(isset($_SESSION['edit_btn'])){
+        self::loadModel('mvc/models/CustomerModel.php');
+        $this->customerModel = new CustomerModel;
+
+        $data = $this->customerModel->updateBalanceOfCustomer($balance, $customer_id);
+       
+        $model = $this->customerModel;
+        parent::view('mvc/views/frontend/admin/info.php', $data); 
+    }
+        else{
+            parent::view('mvc/views/frontend/admin/adminlogin.php');
+        }
+    }
+   
+    
+   
    
 }

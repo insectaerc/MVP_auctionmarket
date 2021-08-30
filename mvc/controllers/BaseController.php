@@ -6,6 +6,9 @@ class BaseController{
         }
         include $path;
     }
+    public static function viewDetail($path, $data=[]){        
+        include $path;
+    }
     protected static function loadModel($path){
         require $path;
     }

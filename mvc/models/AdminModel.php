@@ -57,7 +57,7 @@ class AdminModel extends MySQLDatabase{
       }
       $account = $data;    
       if ($account['password'] == $password) {
-        print("login successed!");
+        print("Sucessfully Log In!");
         $_SESSION['email']=$email;
         header("Refresh:0");
       } else {

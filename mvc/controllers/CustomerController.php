@@ -12,10 +12,20 @@ class CustomerController extends BaseController
     }
     function index()
     {
-        if(isset($_SESSION['id'])){
-            $data = $this->customerModel->getCustomers();
+        if(isset($_SESSION['customer_id'])){
+            $data = $this->customerModel->getCustomerById($_SESSION['customer_id']);
             $model = $this->customerModel;
-            parent::view('mvc/views/frontend/customers/index.php', $data);
+            parent::viewDetail('mvc/views/frontend/customers/index.php', $data);
+        }else{
+            parent::view('mvc/views/frontend/customers/login.php');
+        }
+    }
+    function inventory(){
+        if(isset($_SESSION['customer_id'])){
+            self::loadModel('mvc/models/ProductModel.php');
+            $productModel = new ProductModel;
+            $data = $productModel -> findCustomerProduct($_SESSION['customer_id']);
+            parent::view('mvc/views/frontend/customers/inventory.php', $data);
         }else{
             parent::view('mvc/views/frontend/customers/login.php');
         }
