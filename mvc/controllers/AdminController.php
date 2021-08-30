@@ -22,7 +22,7 @@ class AdminController extends BaseController{
         }
         
     }
-    
+   
     function check_admin()
     {
         // Kiểm tra nếu người dùng đã ân nút đăng nhập thì mới xử lý
@@ -48,17 +48,17 @@ class AdminController extends BaseController{
             }
         }
     }
-    function get_user(){
-        if(isset($_SESSION['email'])){
-            $result = $this->adminModel->getCustomers();
-           
-            $model = $this->adminModel;
-            parent::view('mvc/views/frontend/admin/index.php',$data);
-        }else{
-            parent::view('mvc/views/frontend/admin/adminlogin.php');
-        }
+    function info(){
+
+        self::loadModel('mvc/models/CustomerModel.php');
+        $this->customerModel = new CustomerModel;
+    
+        $data = $this->customerModel->getCustomers();
+       
+        $model = $this->customerModel;
+        parent::view('mvc/views/frontend/admin/info.php', $data);
         
-
     }
-
+   
+   
 }
