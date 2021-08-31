@@ -23,8 +23,8 @@
                     </a>
                     <div class='row'>
                         <div class='col'>
-                            <p>Minimum Bid: <br> <?php echo '$'.$entry['minBid'] ?></p>
-                            <p>Current Bid: <br> <?php echo '$'.$entry['highestBid'] ?></p>
+                            <p>Minimum Bid: <br> <?php echo '$'.number_format($entry['minBid'],2) ?></p>
+                            <p>Current Bid: <br> <?php echo '$'.number_format($entry['highestBid'],2) ?></p>
                         </div>
                         <div class='col align-items-center'>
                             <p>Close on: <br> <?php echo $entry['closingTime'] ?></p>
@@ -48,8 +48,8 @@
                     </a>
                     <div class='row'>
                         <div class='col'>
-                            <p>Minimum Bid: <br> <?php echo '$'.$entry['minBid'] ?></p>
-                            <p>Current Bid: <br> <?php echo '$'.$entry['highestBid'] ?></p>
+                            <p>Minimum Bid: <br> <?php echo '$'.number_format($entry['minBid'],2) ?></p>
+                            <p>Current Bid: <br> <?php echo '$'.number_format($entry['highestBid'],2) ?></p>
                         </div>
                         <div class='col align-items-center'>
                             <p>Close on: <br> <?php echo $entry['closingTime'] ?></p>
@@ -73,8 +73,8 @@
                     </a>
                     <div class='row'>
                         <div class='col'>
-                            <p>Minimum Bid: <br> <?php echo '$'.$entry['minBid'] ?></p>
-                            <p>Current Bid: <br> <?php echo '$'.$entry['highestBid'] ?></p>
+                            <p>Minimum Bid: <br> <?php echo '$'.number_format($entry['minBid'],2) ?></p>
+                            <p>Current Bid: <br> <?php echo '$'.number_format($entry['highestBid'],2) ?></p>
                         </div>
                         <div class='col align-items-center'>
                             <p>Close on: <br> <?php echo $entry['closingTime'] ?></p>

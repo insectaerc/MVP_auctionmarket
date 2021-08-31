@@ -25,7 +25,7 @@
                     <h4>Minimum Bid:</h4>
                 </div>
                 <div class='col'>
-                    <h4>$<?php echo $product['minBid'] ?></h4>
+                    <h4>$<?php echo number_format($product['minBid'],2) ?></h4>
                 </div>
             </div>
             <div class='row'>
@@ -33,7 +33,7 @@
                     <h4>Current Highest Bid:</h4>
                 </div>
                 <div class='col'>
-                    <h4>$<?php echo $product['highestBid'] ?></h4>
+                    <h4>$<?php echo number_format($product['highestBid'],2) ?></h4>
                 </div>
             </div>
             <div class='row'>
@@ -41,7 +41,7 @@
                     <h4>The item has been bidded:</h4>
                 </div>
                 <div class='col'>
-                    <h4><?php echo $product['bidNum'] ?> Times</h4>
+                    <h4><?php echo $product['bidNum']; if($product['bidNum']>1){echo ' Times';}else{echo ' Time';} ?> </h4>
                 </div>
             </div>
             <?php
@@ -91,7 +91,7 @@
                                     <div class="form-group row">
                                         <label for="currentBid" class="col-sm-5 col-form-label">Current Highest Bid:</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control-plaintext" id="currentBid" name="currentBid" value="<?php echo $product['highestBid'] ?>" disabled>
+                                            <input type="text" class="form-control-plaintext" id="currentBid" name="currentBid" value="<?php echo '$'.number_format($product['highestBid'],2) ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
