@@ -39,6 +39,14 @@ class TransactionModel extends MySQLDatabase{
         $data = $stmt->fetch(PDO::FETCH_ASSOC);
         return $data;
     }
+    
+    public function getPreviousBidAmount($product_id){
+        $stmt = $this->db->prepare("SELECT bidder_id, amount FROM (SELECT bidder_id, amount FROM transactions WHERE product_id = :product_id
+        ORDER BY amount DESC LIMIT 2) AS `last2Transactions` ORDER BY amount LIMIT 1");
+        $stmt->execute(['product_id' => $product_id]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $data;
+    }
 
     public function createTransaction($productID, $ownerID, $bidderID, $amount){
         $count = sizeof($this->getTransactions());

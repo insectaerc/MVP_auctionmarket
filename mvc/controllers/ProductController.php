@@ -85,15 +85,15 @@
                         //gọi TransactionModel
                         //gọi getHighestBid($productID)
                         self::loadModel('mvc\models\TransactionModel.php');
-                        $model = new TransactionModel;
-                        $result = $model->getHighestBid($productID);
+                        $transactionModel = new TransactionModel;
+                        $result = $transactionModel->getHighestBid($productID);
                         //so sanh $_POST['amount'] voi ket qua query o tren
                         $value = array_values($result);
                         $currentHighestBid = (double)$value[0];
                         if($_POST['amount'] > $currentHighestBid){
 
                             //Create Transaction
-                            $model->createTransaction($productID, $product['ownerID'], $_SESSION['customer_id'], $_POST['amount']);
+                            $transactionModel->createTransaction($productID, $product['ownerID'], $_SESSION['customer_id'], $_POST['amount']);
                             
                             //Update balance of both bidder and owner
                             $bidder['balance'] = $bidder['balance'] - $_POST['amount'];
@@ -107,6 +107,21 @@
                             $product['bidNum'] = $product['bidNum'] + 1;
                             $_POST['amount'] = (double)$_POST['amount'];
                             $this->productModel->updateBidding($productID, $product['bidNum'], $_POST['amount']);
+
+                            //Refund for the previous bidder, and also minus the the balance of owner
+                            //Get the amount of money of the previous bid
+                            $result = $transactionModel->getPreviousBidAmount($productID);
+                            $previousAmount = $result['amount'];
+                            //Get the previous bidder
+                            $previousBidderID = (int)$result['bidder_id'];
+                            $previousBidder = $customerModel->getCustomerById($previousBidderID);
+                            //Update balace of previous bidder and owner
+                            $previousBidder['balance'] = $previousBidder['balance'] + $previousAmount;
+                            $customerModel->updateBalanceOfCustomer($previousBidder['balance'], $previousBidderID);
+
+                            $owner['balance'] = $owner['balance'] - $previousAmount;
+                            $customerModel->updateBalanceOfCustomer($owner['balance'], $owner['customer_id']);
+
                         }else{
                             $_SESSION['message'] = "Your bid must be higher than the current highest bid.";
                         }
