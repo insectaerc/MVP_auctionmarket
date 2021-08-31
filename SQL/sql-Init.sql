@@ -46,7 +46,7 @@ CREATE TABLE transactions
 	product_id		VARCHAR(30) NOT NULL,
 	owner_id			INT 			NOT NULL,
 	bidder_id		INT 			NOT NULL,
-	amount			NUMERIC,
+	amount			DOUBLE,
 	PRIMARY KEY (transaction_id),
 	FOREIGN KEY (owner_id) REFERENCES customers (customer_id),
 	FOREIGN KEY (bidder_id) REFERENCES customers (customer_id)

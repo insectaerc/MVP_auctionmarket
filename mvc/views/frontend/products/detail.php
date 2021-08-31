@@ -10,7 +10,6 @@
 <body>
     <?php 
         require 'mvc/views/frontend/nav.php';
-        $product = $data[0];
     ?>
     <div class= 'row mx-5'>
         <div class='col text-center' style='height:500px'>
@@ -33,7 +32,7 @@
                     <h4>Current Highest Bid:</h4>
                 </div>
                 <div class='col'>
-                    <h4>$<?php echo $highestBid ?></h4>
+                    <h4>$<?php echo $product['highestBid'] ?></h4>
                 </div>
             </div>
             <?php
@@ -81,7 +80,7 @@
                                     <div class="form-group row">
                                         <label for="currentBid" class="col-sm-5 col-form-label">Current Highest Bid:</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control-plaintext" id="currentBid" name="currentBid" value="<?php echo $highestBid ?>" disabled>
+                                            <input type="text" class="form-control-plaintext" id="currentBid" name="currentBid" value="<?php echo $product['highestBid'] ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">

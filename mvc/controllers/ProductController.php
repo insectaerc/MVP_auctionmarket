@@ -14,21 +14,15 @@
         function detail($id){
             //fetch Product Information (name, minBid, closingTime)
             $data = $this->productModel -> findProduct($id);
-            $product=$data[0];
-            $minBid = (double)$product['minBid'];
+            $product = $data[0];
 
-            //fetch current highestBid
-            self::loadModel('mvc\models\TransactionModel.php');
-            $transactionModel = new TransactionModel;
-            $highestBidArr = $transactionModel->getHighestBid($id);
-            $highestBid = array_values($highestBidArr);
-            $highestBid = (double)$highestBid[0];
-            if ($highestBid < $minBid){
-                $highestBid = $minBid;
+            //In case the product hasn't gotten any bid yet
+            if($product['minBid'] > $product['highestBid']){
+                $product['highestBid'] = $product['minBid'];
             }
 
             //Push data to detail page
-            parent::view('mvc/views/frontend/products/detail.php', ['data'=>$data, 'highestBid'=>$highestBid]);
+            parent::view('mvc/views/frontend/products/detail.php', ['product'=>$product]);
         }
         function show($classifyType){
             switch ($classifyType) {

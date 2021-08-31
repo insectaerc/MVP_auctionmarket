@@ -64,7 +64,6 @@ class ProductModel extends MongoDatabase{
 
     public function updateBidding($productID, $bidNum, $highestBid){
         $this->collection->updateOne(['_id'=> new MongoDB\BSON\ObjectId($productID)], ['$set'=>['bidNum'=>$bidNum, 'highestBid'=>$highestBid]]);
-        return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
     
     public function destroy($productID){
