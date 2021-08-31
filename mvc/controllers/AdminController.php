@@ -101,6 +101,8 @@ class AdminController extends BaseController{
         self::loadModel('mvc/models/CustomerModel.php');
         $this->customerModel = new CustomerModel;
         $this->customerModel -> delete($customer_id);
+        $this->session-> set_flashdata("flash_mess", "Delete Success");
+        redirect(base_url() . "mvc/views/frontend/info");
     }
 
         

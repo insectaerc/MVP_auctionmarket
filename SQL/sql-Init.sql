@@ -72,13 +72,16 @@ VALUES
 	(9,"1998-10-06","Hayes","Hutchinson","F","commodo.auctor.velit@metusInnec.ca","Hoogeveen","Palau","D0955C6B-F8A4-E3F8-6CCE-59300A0D158A","(05) 8802 5171","1234",57292),
 	(10,"1982-09-08","Nola","Witt","F","magna.tellus@aduiCras.co.uk","Branchon","Belgium","EA07C0F7-5FAA-90E0-7CEB-981057B87635","(01) 4664 3322","1234",49559);
 
+USE AUCTIONMARKET;
+
 CREATE TABLE admin
 (
     admin_id      INT      NOT NULL,
     email    VARCHAR(100)  NOT NULL,
     password   VARCHAR(30)  NOT NULL,
-    admin name VARCHAR(30) NOT NULL,
-    
+    admin_name VARCHAR(30) NOT NULL,
+    PRIMARY KEY (admin_id),
+    UNIQUE (admin_name)
 );
 
 INSERT INTO `admin` (`admin_id`, `email`, `password`, `admin_name`) VALUES ('1', 'admin@gmail.com', '1234', 'John Admin');
