@@ -49,6 +49,14 @@ class AdminController extends BaseController{
             }
         }
     }
+
+    function logout(){
+        // remove all session variables
+        session_start();
+        // destroy the session
+        unset($_SESSION['email']);
+        header('Location: index.php');
+    }
   
     function info(){
         

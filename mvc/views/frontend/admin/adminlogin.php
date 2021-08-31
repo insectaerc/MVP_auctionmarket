@@ -21,8 +21,8 @@
 <body>
 	<br> </br>
 	<h2 align="center">Admin Login Page </h2>
-	<div class="col-md-6">
-	<div class="form-group">
+	<div class="container">
+	<div class="form-group text-center"  >
 		<form action="" method="POST">
 		<label>Email</label>
 		<input type="text" name="email" placeholder="Email" class="form-control"><br>
