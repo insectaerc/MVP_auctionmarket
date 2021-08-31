@@ -10,7 +10,6 @@
 <body>
     <?php 
         require 'mvc/views/frontend/nav.php';
-        $product = $data[0];
     ?>
     <div class= 'row mx-5'>
         <div class='col text-center' style='height:500px'>
@@ -19,13 +18,14 @@
         <div class='col'>
             <h2><?php echo $product['name'] ?></h2>
             <p>Product Information: blabla</p>
+            <p>Item's owner: <a href="/MVP_auctionmarket/customer/detail/<?php echo $product['ownerID'] ?>">Contact</a></p>
             <br>
             <div class='row'>
                 <div class='col'>
                     <h4>Minimum Bid:</h4>
                 </div>
                 <div class='col'>
-                    <h4>$<?php echo $product['minBid'] ?></h4>
+                    <h4>$<?php echo number_format($product['minBid'],2) ?></h4>
                 </div>
             </div>
             <div class='row'>
@@ -33,12 +33,22 @@
                     <h4>Current Highest Bid:</h4>
                 </div>
                 <div class='col'>
-                    <h4>$<?php echo $highestBid ?></h4>
+                    <h4>$<?php echo number_format($product['highestBid'],2) ?></h4>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col'>
+                    <h4>The item has been bidded:</h4>
+                </div>
+                <div class='col'>
+                    <h4><?php echo $product['bidNum']; if($product['bidNum']>1){echo ' Times';}else{echo ' Time';} ?> </h4>
                 </div>
             </div>
             <?php
             if(isset($_SESSION['customer_id'])){
-                echo "<button name='bid_button' type='button' class='btn btn-success' data-toggle='modal' data-target='#biddingModal' data-toggle='tooltip' data-placement='bottom' title='Start bidding for this item'>Bid</button>";
+                if($_SESSION['customer_id'] != $product['ownerID']){
+                    echo "<button name='bid_button' type='button' class='btn btn-success' data-toggle='modal' data-target='#biddingModal' data-toggle='tooltip' data-placement='bottom' title='Start bidding for this item'>Bid</button>";
+                }
             }else{
                 echo "<button type='button' class='btn btn-success' data-toggle='tooltip' data-placement='bottom' title='Start bidding for this item'>Bid</button>";
             }
@@ -81,7 +91,7 @@
                                     <div class="form-group row">
                                         <label for="currentBid" class="col-sm-5 col-form-label">Current Highest Bid:</label>
                                         <div class="col-sm-7">
-                                            <input type="text" class="form-control-plaintext" id="currentBid" name="currentBid" value="<?php echo $highestBid ?>" disabled>
+                                            <input type="text" class="form-control-plaintext" id="currentBid" name="currentBid" value="<?php echo '$'.number_format($product['highestBid'],2) ?>" disabled>
                                         </div>
                                     </div>
                                     <div class="form-group row">
