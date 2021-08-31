@@ -14,7 +14,6 @@ class CustomerController extends BaseController
     {
         if(isset($_SESSION['customer_id'])){
             $data = $this->customerModel->getCustomerById($_SESSION['customer_id']);
-            $model = $this->customerModel;
             parent::viewDetail('mvc/views/frontend/customers/index.php', $data);
         }else{
             parent::view('mvc/views/frontend/customers/login.php');
@@ -33,8 +32,14 @@ class CustomerController extends BaseController
     
     function detail($id)
     {
+        $id = (int) $id;
         $data = $this->customerModel->getCustomerById($id);
-        parent::view('mvc/views/frontend/customers/detail.php', $data);
+        
+        if(isset($_SESSION['customer_id']) && $id == $_SESSION['customer_id']){
+            parent::view('mvc/views/frontend/customers/index.php', $data);
+        }else{
+            parent::view('mvc/views/frontend/customers/detail.php', $data);
+        }
     }
     
     function check_user()

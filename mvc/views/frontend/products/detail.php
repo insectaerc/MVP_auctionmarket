@@ -18,6 +18,7 @@
         <div class='col'>
             <h2><?php echo $product['name'] ?></h2>
             <p>Product Information: blabla</p>
+            <p>Item's owner: <a href="/MVP_auctionmarket/customer/detail/<?php echo $product['ownerID'] ?>">Contact</a></p>
             <br>
             <div class='row'>
                 <div class='col'>
@@ -37,7 +38,9 @@
             </div>
             <?php
             if(isset($_SESSION['customer_id'])){
-                echo "<button name='bid_button' type='button' class='btn btn-success' data-toggle='modal' data-target='#biddingModal' data-toggle='tooltip' data-placement='bottom' title='Start bidding for this item'>Bid</button>";
+                if($_SESSION['customer_id'] != $product['ownerID']){
+                    echo "<button name='bid_button' type='button' class='btn btn-success' data-toggle='modal' data-target='#biddingModal' data-toggle='tooltip' data-placement='bottom' title='Start bidding for this item'>Bid</button>";
+                }
             }else{
                 echo "<button type='button' class='btn btn-success' data-toggle='tooltip' data-placement='bottom' title='Start bidding for this item'>Bid</button>";
             }
