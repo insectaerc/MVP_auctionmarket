@@ -36,6 +36,14 @@
                     <h4>$<?php echo $product['highestBid'] ?></h4>
                 </div>
             </div>
+            <div class='row'>
+                <div class='col'>
+                    <h4>The item has been bidded:</h4>
+                </div>
+                <div class='col'>
+                    <h4><?php echo $product['bidNum'] ?> Times</h4>
+                </div>
+            </div>
             <?php
             if(isset($_SESSION['customer_id'])){
                 if($_SESSION['customer_id'] != $product['ownerID']){
