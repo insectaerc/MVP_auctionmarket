@@ -13,10 +13,8 @@ class AdminController extends BaseController{
     }
     function index()
     {
-        if(isset($_SESSION['email'])){
+        if(isset($_SESSION['adminEmail'])){
             $data = $this->adminModel->getAdmins();
-           
-            $model = $this->adminModel;
             parent::view('mvc/views/frontend/admin/index.php',$data);
         }else{
             parent::view('mvc/views/frontend/admin/adminlogin.php');
@@ -51,10 +49,8 @@ class AdminController extends BaseController{
     }
 
     function logout(){
-        // remove all session variables
-        session_start();
-        // destroy the session
-        unset($_SESSION['email']);
+        // unset the session
+        unset($_SESSION['adminEmail']);
         header('Location: index.php');
     }
   
@@ -94,7 +90,7 @@ class AdminController extends BaseController{
         $customer_id = $_POST['customer_id'];
         $balance = $_POST['balance'];
         
-       $this->customerModel->updateBalanceOfCustomer($balance, $customer_id);
+        $this->customerModel->updateBalanceOfCustomer($balance, $customer_id);
        
     }
     function delete($customer_id){
