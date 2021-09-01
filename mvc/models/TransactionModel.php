@@ -51,14 +51,18 @@ class TransactionModel extends MySQLDatabase{
     public function createTransaction($productID, $ownerID, $bidderID, $amount){
         $count = sizeof($this->getTransactions());
         $newId = $count + 1;
-        $stmt = $this->db->prepare("INSERT INTO `transactions` (`transaction_id`,`product_id`,`owner_id`,`bidder_id`,`amount`) 
-        VALUES (:transaction_id, :product_id, :owner_id, :bidder_id, :amount)");
+        date_default_timezone_set('Asia/Ho_Chi_Minh');
+        $dateTime = date("y-m-d H:i:sa");
+        echo $dateTime;
+        $stmt = $this->db->prepare("INSERT INTO `transactions` (`transaction_id`,`product_id`,`owner_id`,`bidder_id`,`amount`, `createdAt`) 
+        VALUES (:transaction_id, :product_id, :owner_id, :bidder_id, :amount, :createdAt)");
         $stmt->execute([
         'transaction_id' => $newId,
         'product_id' => $productID,
         'owner_id' => $ownerID,
         'bidder_id' => $bidderID,
-        'amount' => $amount
+        'amount' => $amount,
+        'createdAt' => $dateTime
         ]);
     }
 }

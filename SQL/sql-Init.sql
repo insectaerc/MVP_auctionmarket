@@ -47,6 +47,7 @@ CREATE TABLE transactions
 	owner_id			INT 			NOT NULL,
 	bidder_id		INT 			NOT NULL,
 	amount			DOUBLE,
+    createdAt		DATETIME,
 	PRIMARY KEY (transaction_id),
 	FOREIGN KEY (owner_id) REFERENCES customers (customer_id),
 	FOREIGN KEY (bidder_id) REFERENCES customers (customer_id)
