@@ -51,7 +51,7 @@
                             <div class="form-group row">
                                 <label for="closingTime" class="col-sm-4 col-form-label">Close On</label>
                                 <div class="col-sm-8">
-                                    <input type="text" class="form-control-plaintext" id="closingTime" name="closingTime" placeholder="Ending time for the deal">
+                                    <input type="datetime-local" class="form-control-plaintext" id="closingTime" name="closingTime" placeholder="Ending time for the deal">
                                 </div>
                             </div>
                         </fieldset>
@@ -155,7 +155,7 @@
                                 </button>
                             </a>
                         </td>
-                    <td><?php echo $entry['closingTime'] ?></td>
+                    <td><?php echo date('Y-m-d H:i:s', strtotime((string)$entry['closingTime'])) ?></td>
                     <td><?php echo '$'.number_format($entry['minBid'],2) ?></td>
                     <td>
                         <button type='button' class='btn btn-info' data-toggle='modal' data-target='#editModal<?php echo $entry['_id']?>' data-toggle='tooltip' data-placement='bottom' title='Edit Information'>

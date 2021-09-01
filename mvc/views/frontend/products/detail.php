@@ -22,6 +22,14 @@
             <br>
             <div class='row'>
                 <div class='col'>
+                    <h4>Close On:</h4>
+                </div>
+                <div class='col'>
+                    <h4><?php echo date('Y-m-d H:i:s', strtotime((string)$product['closingTime'])) ?></h4>
+                </div>
+            </div>
+            <div class='row'>
+                <div class='col'>
                     <h4>Minimum Bid:</h4>
                 </div>
                 <div class='col'>

@@ -27,7 +27,7 @@
                             <p>Current Bid: <br> <?php echo '$'.number_format($entry['highestBid'],2) ?></p>
                         </div>
                         <div class='col align-items-center'>
-                            <p>Close on: <br> <?php echo $entry['closingTime'] ?></p>
+                            <p>Close on: <br> <?php echo date('Y-m-d H:i:s', strtotime((string)$entry['closingTime'])) ?></p>
                             <a href="/MVP_auctionmarket/product/detail/<?php echo $entry['_id'] ?>" class='btn btn-success w-100' role='button'>Bid</a>
                         </div>
                     </div>
@@ -52,7 +52,7 @@
                             <p>Current Bid: <br> <?php echo '$'.number_format($entry['highestBid'],2) ?></p>
                         </div>
                         <div class='col align-items-center'>
-                            <p>Close on: <br> <?php echo $entry['closingTime'] ?></p>
+                            <p>Close on: <br> <?php echo date('Y-m-d H:i:s', strtotime((string)$entry['closingTime'])) ?></p>
                             <a href="/MVP_auctionmarket/product/detail/<?php echo $entry['_id'] ?>" class='btn btn-success w-100' role='button'>Bid</a>
                         </div>
                     </div>
@@ -77,7 +77,7 @@
                             <p>Current Bid: <br> <?php echo '$'.number_format($entry['highestBid'],2) ?></p>
                         </div>
                         <div class='col align-items-center'>
-                            <p>Close on: <br> <?php echo $entry['closingTime'] ?></p>
+                            <p>Close on: <br> <?php echo date('Y-m-d H:i:s', strtotime((string)$entry['closingTime'])) ?></p>
                             <a href="/MVP_auctionmarket/product/detail/<?php echo $entry['_id'] ?>" class='btn btn-success w-100' role='button'>Bid</a>
                         </div>
                     </div>
