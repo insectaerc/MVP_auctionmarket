@@ -1,4 +1,5 @@
 <?php
+
 class AdminController extends BaseController{
     public static $instance;
     private $adminModel;
@@ -12,10 +13,8 @@ class AdminController extends BaseController{
     }
     function index()
     {
-        if(isset($_SESSION['email'])){
+        if(isset($_SESSION['adminEmail'])){
             $data = $this->adminModel->getAdmins();
-           
-            $model = $this->adminModel;
             parent::view('mvc/views/frontend/admin/index.php',$data);
         }else{
             parent::view('mvc/views/frontend/admin/adminlogin.php');
@@ -48,33 +47,80 @@ class AdminController extends BaseController{
             }
         }
     }
-    function info(){
 
+    function logout(){
+        // unset the session
+        unset($_SESSION['adminEmail']);
+        header('Location: index.php');
+    }
+  
+    function info(){
+        
         self::loadModel('mvc/models/CustomerModel.php');
         $this->customerModel = new CustomerModel;
     
         $data = $this->customerModel->getCustomers();
        
         $model = $this->customerModel;
+        
         parent::view('mvc/views/frontend/admin/info.php', $data);
         
     }
-   
+
+    function trans(){
+    
+        self::loadModel('mvc/models/TransactionModel.php');
+      
+        $this->transactionModel = new TransactionModel;
+       
+        $data = $this->transactionModel->getTransactions();
+    
+        $model = $this->transactionModel;
+        
+        parent::view('mvc/views/frontend/admin/trans.php', $data);
+        
+    }
+
+    
     function edit(){
         
-        if(isset($_SESSION['edit_btn'])){
         self::loadModel('mvc/models/CustomerModel.php');
         $this->customerModel = new CustomerModel;
 
-        $data = $this->customerModel->updateBalanceOfCustomer($balance, $customer_id);
+        $customer_id = $_POST['customer_id'];
+        $balance = $_POST['balance'];
+        
+        $this->customerModel->updateBalanceOfCustomer($balance, $customer_id);
        
-        $model = $this->customerModel;
-        parent::view('mvc/views/frontend/admin/info.php', $data); 
     }
-        else{
-            parent::view('mvc/views/frontend/admin/adminlogin.php');
-        }
+    function delete($customer_id){
+        self::loadModel('mvc/models/CustomerModel.php');
+        $this->customerModel = new CustomerModel;
+        $this->customerModel -> delete($customer_id);
+        $this->session-> set_flashdata("flash_mess", "Delete Success");
+        redirect(base_url() . "mvc/views/frontend/info");
     }
+
+
+    function search(){
+
+
+        if(isset($_POST['product_id'])){
+       
+        self::loadModel('mvc/models/TransactionModel.php');
+        $this->transactionModel = new TransactionModel;
+
+        $product_id = $_POST['product_id'];
+        // echo-ing product_id to test POST method
+        echo $product_id;
+    }
+        $data=$this->transactionModel->getTrans_byproductid($product_id);
+   
+        parent::view('mvc/views/frontend/admin/search.php', $data);
+   
+    }
+        
+    
    
     
    
