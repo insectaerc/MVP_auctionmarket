@@ -52,7 +52,7 @@ class TransactionModel extends MySQLDatabase{
         $count = sizeof($this->getTransactions());
         $newId = $count + 1;
         date_default_timezone_set('Asia/Ho_Chi_Minh');
-        $dateTime = date("y-m-d H:i:sa");
+        $dateTime = date("Y-m-d H:i:s");
         echo $dateTime;
         $stmt = $this->db->prepare("INSERT INTO `transactions` (`transaction_id`,`product_id`,`owner_id`,`bidder_id`,`amount`, `createdAt`) 
         VALUES (:transaction_id, :product_id, :owner_id, :bidder_id, :amount, :createdAt)");
