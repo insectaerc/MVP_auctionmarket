@@ -18,15 +18,13 @@
     <h1 align="center" style="color:Peru" ;> Transaction Management </h1>
     <!-- Search transactions -->
     <div class="form-row">
-        <form action="/MVP_auctionmarket/admin/search/" method="post">
+        <form action="/MVP_auctionmarket/admin/search/" method="POST">
             <div class="col">
-                <input type="text" class="form-control" placeholder="Search transaction" name="search">
+                <input type="text" class="form-control" placeholder="Search transaction" id="product_id"name="product_id">
+                <input type="submit">
             </div>
     </div>
     </form>
-
-
-
 
 
     <div class='mx-5 my-3'>
@@ -57,6 +55,7 @@
 
             </tbody>
         </table>
+        </div>
 </body>
 
 </html>
