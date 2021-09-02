@@ -18,7 +18,7 @@
     <h1 align="center" style="color:Peru" ;> Transaction Management </h1>
     <!-- Search transactions -->
     <div class="form-row">
-        <form action="/MVP_auctionmarket/admin/search/" method="POST">
+        <form action="/MVP_auctionmarket/admin/trans/" method="POST">
             <div class="col">
                 <input type="text" class="form-control" placeholder="Search transaction" id="product_id"name="product_id">
                 <input type="submit">
@@ -41,7 +41,8 @@
             </thead>
             <tbody>
                 <!-- Show all transactions -->
-                <?php foreach ($data as $entry) { ?>
+                <?php
+                if(isset($_POST['product_id']) == false) { foreach ($data as $entry) { ?>
                     <tr>
                         <td> <?php echo $entry['transaction_id']; ?></td>
                         <td> <?php echo $entry['product_id']; ?></td>
@@ -51,7 +52,22 @@
                         <td> <?php echo $entry['createdAt']; ?></td>
 
                     </tr>
+                <?php }}
+                else{ ?>
+                <div class="form-row">
+        <form action="/MVP_auctionmarket/admin/trans/" method="POST">
+            <div class="col">
+                <input type="timedate" class="form-control" placeholder="Search transaction" id="product_id"name="product_id">
+                <input type="submit">
+            </div>
+                        <td> <?php echo $data['transaction_id']; ?></td>
+                        <td> <?php echo $data['product_id']; ?></td>
+                        <td> <?php echo $data['owner_id']; ?></td>
+                        <td> <?php echo $data['bidder_id']; ?></td>
+                        <td> <?php echo $data['amount']; ?></td>
+                        <td> <?php echo $data['createdAt']; ?></td>
                 <?php } ?>
+             
 
             </tbody>
         </table>
