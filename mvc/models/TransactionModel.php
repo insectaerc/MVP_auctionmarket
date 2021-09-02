@@ -65,5 +65,14 @@ class TransactionModel extends MySQLDatabase{
         'createdAt' => $dateTime
         ]);
     }
+
+    public function getTrans_byproductid($product_id){
+        $stmt = $this->db->prepare("SELECT * FROM transactions WHERE product_id=:product_id");
+        $stmt->execute(['product_id' => $product_id]);
+        $data = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $data;
+    }
+
+    
 }
 ?>

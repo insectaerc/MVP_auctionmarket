@@ -101,7 +101,25 @@ class AdminController extends BaseController{
         redirect(base_url() . "mvc/views/frontend/info");
     }
 
+    function search(){
+
+
+        if(isset($_POST['product_id'])){
+       
+        self::loadModel('mvc/models/TransactionModel.php');
+        $this->transactionModel = new TransactionModel;
+
+        $product_id = $_POST['product_id'];
+        // echo-ing product_id to test POST method
+        echo $product_id;
+    }
+        $data=$this->transactionModel->getTrans_byproductid($product_id);
+   
+        parent::view('mvc/views/frontend/admin/search.php', $data);
+   
+    }
         
+       
     
    
     
