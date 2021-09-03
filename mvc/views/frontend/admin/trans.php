@@ -20,7 +20,7 @@
     <div class="form-row">
         <form action="/MVP_auctionmarket/admin/trans/" method="POST">
             <div class="col">
-                <input type="text" class="form-control" placeholder="Search transaction" id="product_id"name="product_id">
+                <input type="text" class="form-control" placeholder="Search transaction" id="product_id" name="product_id">
                 <input type="submit">
             </div>
     </div>
@@ -42,36 +42,47 @@
             <tbody>
                 <!-- Show all transactions -->
                 <?php
-                if(isset($_POST['product_id']) == false) { foreach ($data as $entry) { ?>
-                    <tr>
-                        <td> <?php echo $entry['transaction_id']; ?></td>
-                        <td> <?php echo $entry['product_id']; ?></td>
-                        <td> <?php echo $entry['owner_id']; ?></td>
-                        <td> <?php echo $entry['bidder_id']; ?></td>
-                        <td> <?php echo $entry['amount']; ?></td>
-                        <td> <?php echo $entry['createdAt']; ?></td>
+                
+                    foreach ($data as $entry) { ?>
+                        <tr>
+                            <td> <?php echo $entry['transaction_id']; ?></td>
+                            <td> <?php echo $entry['product_id']; ?></td>
+                            <td> <?php echo $entry['owner_id']; ?></td>
+                            <td> <?php echo $entry['bidder_id']; ?></td>
+                            <td> <?php echo $entry['amount']; ?></td>
+                            <td> <?php echo $entry['createdAt']; ?></td>
 
-                    </tr>
-                <?php }}
-                else{ ?>
-                <div class="form-row">
-        <form action="/MVP_auctionmarket/admin/trans/" method="POST">
-            <div class="col">
-                <input type="timedate" class="form-control" placeholder="Search transaction" id="product_id"name="product_id">
-                <input type="submit">
-            </div>
-                        <td> <?php echo $data['transaction_id']; ?></td>
+                        </tr>
+                    <?php }
+                 { ?>
+                    <h6>Search for Transaction between two time periods</h6>
+                    <p>Start:</p>
+                    <div class="form-row">
+                        <form action="/MVP_auctionmarket/admin/searchtime/" method="POST">
+                            <div class="col-3">
+                                <input type="datetime-local" class="form-control me-sm-2" placeholder="Search transaction" id="d1" name="d2">
+
+                            </div>
+                            <p>End:</p>
+                            
+                                    <div class="col-3">
+                                        <input type="datetime-local" class="form-control me-sm-2" placeholder="Search transaction" id="d2" name="d2">
+                                        <input type="submit">
+                                    </div>
+                                    <!-- <?php echo $data['product_id']; ?> -->
+                            </div>
+                        </form>
+                        
+                        <!-- <td> <?php echo $data['transaction_id']; ?></td>
                         <td> <?php echo $data['product_id']; ?></td>
                         <td> <?php echo $data['owner_id']; ?></td>
                         <td> <?php echo $data['bidder_id']; ?></td>
                         <td> <?php echo $data['amount']; ?></td>
-                        <td> <?php echo $data['createdAt']; ?></td>
-                <?php } ?>
-             
+                        <td> <?php echo $data['createdAt']; ?></td> -->
+                    <?php } ?>
+
 
             </tbody>
         </table>
-        </div>
+    </div>
 </body>
-
-</html>
