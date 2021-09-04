@@ -119,40 +119,40 @@ class AdminController extends BaseController{
     }
 
 
-    function search(){
+    // function search(){
 
 
-        if(isset($_POST['product_id'])){
+    //     if(isset($_POST['product_id'])){
        
-        self::loadModel('mvc/models/TransactionModel.php');
-        $this->transactionModel = new TransactionModel;
+    //     self::loadModel('mvc/models/TransactionModel.php');
+    //     $this->transactionModel = new TransactionModel;
 
-        $product_id = $_POST['product_id'];
-        // echo-ing product_id to test POST method
-        echo $product_id;
-    }
-        $data=$this->transactionModel->getTransbyproductid($product_id);
+    //     $product_id = $_POST['product_id'];
+    //     // echo-ing product_id to test POST method
+    //     echo $product_id;
+    // }
+    //     $data=$this->transactionModel->getTransbyproductid($product_id);
    
-        parent::view('mvc/views/frontend/admin/search.php', $data);
+    //     parent::view('mvc/views/frontend/admin/search.php', $data);
    
-    }
+    // }
     
     function searchtime(){
         self::loadModel('mvc/models/TransactionModel.php');
         $this->transactionModel = new TransactionModel;
-        if(isset($_POST['d1'])){
+        if(isset($_POST['save'])){
             $d1 = $_POST['d1'];
             $d2 = $_POST['d2'];
             $product_id = $_POST['product_id'];
         // echo-ing product_id to test POST method
         
-        echo $d1;
-        echo $d2;
-        echo $product_id;
+        // echo $d1;
+        // echo $d2;
+        // echo $product_id;
         }
         $data=$this->transactionModel->search_trans_by_time($product_id, $d1, $d2);
         
-         parent::view('mvc/views/frontend/admin/search.php', $data);
+         parent::view('mvc/views/frontend/admin/trans.php', $data);
 
 
 

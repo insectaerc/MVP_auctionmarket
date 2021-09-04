@@ -75,11 +75,11 @@ class TransactionModel extends MySQLDatabase{
     }
 
     public function search_trans_by_time($product_id,$d1,$d2){
-        $stmt = $this->db->prepare("SELECT * FROM transactions WHERE createdAt BETWEEN date1=:d1 AND date2=:d2 AND product_id=:product_id ");
+        $stmt = $this->db->prepare("SELECT * FROM transactions WHERE createdAt BETWEEN :d1 AND :d2 AND product_id=:product_id ");
         $stmt->execute([
             'product_id' => $product_id,
-            'date1' => $d1,
-            'date2' => $d2
+            'd1' => $d1,
+            'd2' => $d2
         ]);
         $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
         return $data;
@@ -104,21 +104,21 @@ class TransactionModel extends MySQLDatabase{
     }
 
 
-    public function getTransactions_time(){
-        $sqlStatement = "SELECT * FROM transactions WHERE createdAt BETWEEN date1=:d1 AND date2=:d2 AND product_id=:product_id ";
-        try {
-        $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $data = [];
-        foreach ($this->db->query($sqlStatement) as $row) {
-            array_push($data, $row);
-            //print $v;
-        }
-        $data = array_values($data);
-        return $data;
-        } catch (PDOException $e) {
-        $e->getMessage();
-        }
-    }
+    // public function getTransactions_time(){
+    //     $sqlStatement = "SELECT * FROM transactions WHERE createdAt BETWEEN :d1 AND :d2 AND product_id=:product_id ";
+    //     try {
+    //     $this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    //     $data = [];
+    //     foreach ($this->db->query($sqlStatement) as $row) {
+    //         array_push($data, $row);
+    //         //print $v;
+    //     }
+    //     $data = array_values($data);
+    //     return $data;
+    //     } catch (PDOException $e) {
+    //     $e->getMessage();
+    //     }
+    // }
     
      
 }
