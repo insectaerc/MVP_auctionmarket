@@ -92,7 +92,9 @@ class AdminController extends BaseController{
 
         }else{
             $data = $this->transactionModel->getTransactions();
-            $model = $this->transactionModel;
+        }
+        if(sizeof($data) == 0){
+            $_SESSION['emptyDataMessage'] = 'The given product_id might be incorrect. Please check again.';
         }
         parent::view('mvc/views/frontend/admin/trans.php', $data);
 
@@ -140,7 +142,7 @@ class AdminController extends BaseController{
     function searchtime(){
         self::loadModel('mvc/models/TransactionModel.php');
         $this->transactionModel = new TransactionModel;
-        if(isset($_POST['save'])){
+        if(isset($_POST['search_2timepoints_btn'])){
             $d1 = $_POST['d1'];
             $d2 = $_POST['d2'];
             $product_id = $_POST['product_id'];
@@ -151,8 +153,10 @@ class AdminController extends BaseController{
         // echo $product_id;
         }
         $data=$this->transactionModel->search_trans_by_time($product_id, $d1, $d2);
-        
-         parent::view('mvc/views/frontend/admin/trans.php', $data);
+        if(sizeof($data) == 0){
+            $_SESSION['emptyDataMessage'] = 'No money transacted in the given preriod of time';
+        }
+        parent::view('mvc/views/frontend/admin/trans.php', $result=['data'=>$data, 'product_id'=>$product_id]);
 
 
 
