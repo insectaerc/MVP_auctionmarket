@@ -63,6 +63,7 @@ class CustomerModel extends MySQLDatabase
       'branch' => $obj['branch']
 
     ]);
+    uploadImage( $newId);
     //$data = $stmt->fetch();
   }
   //update Customer's Balance
@@ -72,7 +73,6 @@ class CustomerModel extends MySQLDatabase
     $stmt = $this->db->prepare($sqlStatement);
     $stmt->execute(['balance' => $balance, 'customer_id' => $customer_id]);
     return header('Location: ' . $_SERVER['HTTP_REFERER']);;
-  
   }
   // delete Customer  
   public function deleteCustomer($customer_id)
@@ -80,8 +80,6 @@ class CustomerModel extends MySQLDatabase
     $sqlStatement = "DELETE FROM customers WHERE customer_id = :customer_id";
     $stmt = $this->db->prepare($sqlStatement);
     return header('Location: ' . $_SERVER['HTTP_REFERER']);;
-  
-
   }
   // select Customer       
   public function getCustomers()
@@ -103,7 +101,7 @@ class CustomerModel extends MySQLDatabase
   }
 
   public function getCustomerById($id)
-  { 
+  {
     $stmt = $this->db->prepare("SELECT * FROM customers WHERE customer_id=:id");
     $stmt->execute(['id' => $id]);
     $data = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -133,7 +131,7 @@ class CustomerModel extends MySQLDatabase
     }
     $account = $data;
     if ($account['pass'] == $password) {
-      $data['customer_id']= (int) $data['customer_id'];
+      $data['customer_id'] = (int) $data['customer_id'];
       $_SESSION['customer_id'] = $data['customer_id'];
 
       header("Refresh:0");
@@ -141,4 +139,6 @@ class CustomerModel extends MySQLDatabase
       print("login failed, wrong password!");
     }
   }
+
+  
 }

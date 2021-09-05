@@ -12,11 +12,13 @@
     <?php
     include 'mvc/views/frontend/nav.php';
     ?>
-    
+
     <div class="container">
         <form action="" method="post" class="register-form">
             <div class='row'>
-                <div class='col'><h1> Profile</h1></div>
+                <div class='col'>
+                    <h1> Profile</h1>
+                </div>
                 <div class='col'>
                     <a href="/MVP_auctionmarket/customer/inventory">
                         <button type="button" class="btn btn-success" style="float:right">Inventory</button>
@@ -24,6 +26,9 @@
                 </div>
             </div>
             <hr>
+            
+            <img id='Avatar' class='mb-3' src='/MVP_auctionmarket/upload/<?php echo $data['customer_id']; ?>' alt='' style=' max-height: 256px;'>
+            <br>
 
             <label for="email" class="form-label mt-4"><b>Email</b></label>
             <input type="email" class="form-control" placeholder="Email" name="email" id="email" disabled value="<?php echo $data['email']; ?>">
