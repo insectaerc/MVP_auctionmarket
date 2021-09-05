@@ -43,11 +43,12 @@ CREATE TABLE customers
 CREATE TABLE transactions
 (
 	transaction_id	INT 			NOT NULL,
+	transaction_type	VARCHAR(10) NOT NULL,
 	product_id		VARCHAR(30) NOT NULL,
 	owner_id			INT 			NOT NULL,
 	bidder_id		INT 			NOT NULL,
 	amount			DOUBLE,
-    createdAt		DATETIME,
+	createdAt		DATETIME,
 	PRIMARY KEY (transaction_id),
 	FOREIGN KEY (owner_id) REFERENCES customers (customer_id),
 	FOREIGN KEY (bidder_id) REFERENCES customers (customer_id)

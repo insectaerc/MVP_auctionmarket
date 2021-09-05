@@ -84,19 +84,19 @@ class AdminController extends BaseController{
     function trans(){
         self::loadModel('mvc/models/TransactionModel.php');
         $this->transactionModel = new TransactionModel;
+        $product_id = null;
         if(isset($_POST['product_id'])){
             $product_id = $_POST['product_id'];
             // echo-ing product_id to test POST method
             $data=$this->transactionModel->getTrans_byproductid($product_id);
            // parent::view('mvc/views/frontend/admin/trans.php', $data);
-
+            if(sizeof($data) == 0){
+                $_SESSION['emptyDataMessage'] = 'No transaction founded for the given product_id. <br> The given product_id might be invalid or the product with the given product_id has not been bidded yet. <br> Please check again.';
+            }
         }else{
             $data = $this->transactionModel->getTransactions();
         }
-        if(sizeof($data) == 0){
-            $_SESSION['emptyDataMessage'] = 'The given product_id might be incorrect. Please check again.';
-        }
-        parent::view('mvc/views/frontend/admin/trans.php', $data);
+        parent::view('mvc/views/frontend/admin/trans.php', $result= ['data'=>$data, 'product_id'=>$product_id]);
 
     }
 
@@ -157,14 +157,38 @@ class AdminController extends BaseController{
             $_SESSION['emptyDataMessage'] = 'No money transacted in the given preriod of time';
         }
         parent::view('mvc/views/frontend/admin/trans.php', $result=['data'=>$data, 'product_id'=>$product_id]);
-
-
-
-
     }
-    
-   
-    
-   
-   
+
+    function undoLastTran($productID){
+        //Get the last transaction's info (amount + transactionID + bidderID + ownerID) of the given productID
+        self::loadModel('mvc/models/TransactionModel.php');
+        $transactionModel = new TransactionModel;
+        $tranInfo = $transactionModel->getLastTran_byProductId($productID);
+        $tranID = $tranInfo['transaction_id'];
+        $amount = $tranInfo['amount'];
+        $bidderID = $tranInfo['bidder_id'];
+        $ownerID = $tranInfo['owner_id'];
+
+        $amount = (double)$amount;
+
+        // Update balance of Bidder and Owner
+        self::loadModel('mvc\models\CustomerModel.php');
+        $customerModel = new CustomerModel;
+
+        $bidder = $customerModel->getCustomerById($bidderID);
+        $bidder_balance = $bidder['balance'];
+        $bidder_balance = $bidder_balance + $amount;
+        $customerModel->updateBalanceOfCustomer($bidder_balance, $bidderID);
+
+        $owner = $customerModel->getCustomerById($ownerID);
+        $owner_balance = $owner['balance'];
+        $owner_balance = $owner_balance - $amount;
+        $customerModel->updateBalanceOfCustomer($owner_balance, $ownerID);
+
+        //Create new UndoTransaction
+        $transactionType = 'refund';
+        $transactionModel->createTransaction($productID, $transactionType, $ownerID, $bidderID, $amount);
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
 }

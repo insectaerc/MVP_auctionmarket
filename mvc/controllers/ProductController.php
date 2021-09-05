@@ -77,8 +77,8 @@
                     $_SESSION['message'] = "Your account's balance is too low for this bid.";
                 }else {
                     $productModel = new ProductModel;
-                    $result = $productModel->findProduct($productID);
-                    $product = $result[0];
+                    $productModel = $productModel->findProduct($productID);
+                    $product = $productModel[0];
                     if($_POST['amount'] < $product['minBid']){
                         $_SESSION['message'] = "Your bid must be higher than the minimum bid and the current highest bid.";
                     }else{
@@ -93,7 +93,8 @@
                         if($_POST['amount'] > $currentHighestBid){
 
                             //Create Transaction
-                            $transactionModel->createTransaction($productID, $product['ownerID'], $_SESSION['customer_id'], $_POST['amount']);
+                            $transactionType = 'bid';
+                            $transactionModel->createTransaction($productID, $transactionType, $product['ownerID'], $_SESSION['customer_id'], $_POST['amount']);
                             
                             //Update balance of both bidder and owner
                             $bidder['balance'] = $bidder['balance'] - $_POST['amount'];
@@ -107,7 +108,8 @@
                             $product['bidNum'] = $product['bidNum'] + 1;
                             $_POST['amount'] = (double)$_POST['amount'];
                             $this->productModel->updateBidding($productID, $product['bidNum'], $_POST['amount']);
-
+                            
+                            if ($product['bidNum'] > 1){
                             //Refund for the previous bidder, and also minus the the balance of owner
                             //Get the amount of money of the previous bid
                             $result = $transactionModel->getPreviousBidAmount($productID);
@@ -120,7 +122,7 @@
                             $customerModel->updateBalanceOfCustomer($previousBidder['balance'], $previousBidderID);
 
                             $owner['balance'] = $owner['balance'] - $previousAmount;
-                            $customerModel->updateBalanceOfCustomer($owner['balance'], $owner['customer_id']);
+                            $customerModel->updateBalanceOfCustomer($owner['balance'], $owner['customer_id']);}
 
                         }else{
                             $_SESSION['message'] = "Your bid must be higher than the current highest bid.";
