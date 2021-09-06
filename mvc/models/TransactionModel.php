@@ -32,6 +32,13 @@ class TransactionModel extends MySQLDatabase{
         $e->getMessage();
         }
     }
+
+    public function getTransactionsByCustomerID($customerID){
+        $stmt = $this->db->prepare("SELECT * FROM transactions WHERE bidder_id=:bidder_id AND transaction_type != 'refund'");
+        $stmt->execute(['bidder_id' => $customerID]);
+        $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $data;
+    }
     
     public function getHighestBid($product_id){
         $stmt = $this->db->prepare("SELECT MAX(amount) FROM transactions WHERE product_id=:product_id");

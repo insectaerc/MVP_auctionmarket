@@ -29,6 +29,21 @@ class CustomerController extends BaseController
             parent::view('mvc/views/frontend/customers/login.php');
         }
     }
+
+    function history(){
+        if(isset($_SESSION['customer_id'])){
+            self::loadModel('mvc/models/TransactionModel.php');
+            $transactionModel = new TransactionModel;
+            $data = $transactionModel -> getTransactionsByCustomerID($_SESSION['customer_id']);
+
+            self::loadModel('mvc/models/ProductModel.php');
+            $productModel = new ProductModel;
+
+            parent::view('mvc/views/frontend/customers/history.php', $resul=['data'=>$data, 'productModel'=>$productModel]);
+        }else{
+            parent::view('mvc/views/frontend/customers/login.php');
+        }
+    }
     
     function detail($id)
     {

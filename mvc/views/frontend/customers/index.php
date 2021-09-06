@@ -19,9 +19,19 @@
                 <h1> Profile</h1>
             </div>
             <div class='col'>
-                <a href="/MVP_auctionmarket/customer/inventory">
-                    <button type="button" class="btn btn-success" style="float:right">Inventory</button>
-                </a>
+                <div class='row'>
+                    <div class='col-2'></div>
+                    <div class='col-7'>
+                        <a href="/MVP_auctionmarket/customer/history">
+                            <button type="button" class="btn btn-success" style="float:right">Bidding History</button>
+                        </a>
+                    </div>
+                    <div class='col-3'>
+                        <a href="/MVP_auctionmarket/customer/inventory">
+                            <button type="button" class="btn btn-success" style="float:right">Inventory</button>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
         <hr>
