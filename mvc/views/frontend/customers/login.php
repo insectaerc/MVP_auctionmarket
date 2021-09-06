@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -154,14 +153,14 @@
     }
 
     ?>
-    <div class="container">
+    <div class="register">
         <form action="" method="post" class="register-form" enctype="multipart/form-data">
             <h1> Register </h1>
             <p>Please fill in this form to create an account.</p>
             <hr>
             <label for="avatar" class="form-label mt-4"><b>Avatar</b></label>
             <br>
-            <img id='previewAvatar' class='mb-3' src='/MVP_auctionmarket/public/images/avatar.png' alt='' style=' max-height: 256px;'>
+            <img id='previewAvatar' class='mb-3' src='/MVP_auctionmarket/public/images/avatar.png' alt='' style=' max-height: 200px;'>
 
             <script>
                 var loadFile = function(event) {
@@ -170,9 +169,9 @@
                     
                 };
             </script>
-            <br>
-            <input type='file' name='avatar' id="avatar" onchange="loadFile(event)"><br><br>
-            <input type="submit" name="uploadImageBtn" id="uploadImageBtn" value="Upload Image">
+             <br>
+            <input type='file' class="form-control" name='avatar' id="avatar" onchange="loadFile(event)"> <br>
+            <input type="submit" class="btn btn-outline-secondary btn-sm" name="uploadImageBtn" id="uploadImageBtn" value="Upload Image">
             <br>
             <label for="email" class="form-label mt-4"><b>Email</b></label>
             <input type="email" class="form-control" placeholder="Enter Email" name="email" id="email" required>
