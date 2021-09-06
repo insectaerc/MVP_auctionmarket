@@ -19,6 +19,7 @@ class CustomerController extends BaseController
             parent::view('mvc/views/frontend/customers/login.php');
         }
     }
+    
     function inventory(){
         if(isset($_SESSION['customer_id'])){
             self::loadModel('mvc/models/ProductModel.php');
@@ -38,8 +39,9 @@ class CustomerController extends BaseController
 
             self::loadModel('mvc/models/ProductModel.php');
             $productModel = new ProductModel;
-
-            parent::view('mvc/views/frontend/customers/history.php', $resul=['data'=>$data, 'productModel'=>$productModel]);
+            $wonProducts = $productModel->findProductsWonByACustomer($_SESSION['customer_id']);
+            
+            parent::view('mvc/views/frontend/customers/history.php', $result=['data'=>$data, 'productModel'=>$productModel, 'wonProducts' => $wonProducts]);
         }else{
             parent::view('mvc/views/frontend/customers/login.php');
         }

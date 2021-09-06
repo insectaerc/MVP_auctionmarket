@@ -7,11 +7,37 @@ class ProductModel extends MongoDatabase{
     public function __construct(){
         $this->connect = parent::connect();
         $this->collection = $this->connect->auctionmarket->products;
+        
+        //check if available products's closingTime is over. If true, set to isAvailable to false
+        $productArr = $this->getAvailableProducts();
+        foreach($productArr as $product){
+            if(strtotime(date_default_timezone_get()) >= strtotime($product['closingTime'])){
+                $this->collection->updateOne(['_id'=> $product['_id']], ['$set'=>['isAvailable'=>false]]);
+            }
+        }
     }
 
 
     public function getAll(){
         $result = $this->collection->find();
+        $data = [];
+        foreach ($result as $entry) {
+            array_push($data, $entry);
+        }
+        return $data;
+    }
+
+    public function getAvailableProducts(){
+        $result = $this->collection->find(['isAvailable'=>true]);
+        $data = [];
+        foreach ($result as $entry) {
+            array_push($data, $entry);
+        }
+        return $data;
+    }
+
+    public function findProductsWonByACustomer($customerID){
+        $result = $this->collection->find(['winnerID'=>$customerID, 'isAvailable'=>false]);
         $data = [];
         foreach ($result as $entry) {
             array_push($data, $entry);
@@ -52,7 +78,9 @@ class ProductModel extends MongoDatabase{
             'closingTime' => $closingTime,
             'bidNum'=> 0,
             'highestBid'=> $minBid,
-            'ownerID' => $ownerID
+            'ownerID' => $ownerID,
+            'isAvailable'=>true,
+            'winnerID' => null
         ]);
         return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
@@ -62,8 +90,8 @@ class ProductModel extends MongoDatabase{
         return header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 
-    public function updateBidding($productID, $bidNum, $highestBid){
-        $this->collection->updateOne(['_id'=> new MongoDB\BSON\ObjectId($productID)], ['$set'=>['bidNum'=>$bidNum, 'highestBid'=>$highestBid]]);
+    public function updateBidding($productID, $bidNum, $highestBid, $winnerID){
+        $this->collection->updateOne(['_id'=> new MongoDB\BSON\ObjectId($productID)], ['$set'=>['bidNum'=>$bidNum, 'highestBid'=>$highestBid, 'winnerID' => $winnerID]]);
     }
     
     public function destroy($productID){

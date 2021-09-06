@@ -79,6 +79,15 @@
                     $productModel = new ProductModel;
                     $productModel = $productModel->findProduct($productID);
                     $product = $productModel[0];
+
+                    //Check if the deal is closed in term of time
+                    date_default_timezone_set('Asia/Ho_Chi_Minh');
+                    if(strtotime(date_default_timezone_get()) >= strtotime($product['closingTime'])){
+                        $_SESSION['message'] = "The auction is already over.";
+                        return header('Location: ' . $_SERVER['HTTP_REFERER']);
+                    }
+                    
+                    //Check price
                     if($_POST['amount'] < $product['minBid']){
                         $_SESSION['message'] = "Your bid must be higher than the minimum bid and the current highest bid.";
                     }else{
@@ -107,7 +116,8 @@
                             //Update product's bidNum + highestBid
                             $product['bidNum'] = $product['bidNum'] + 1;
                             $_POST['amount'] = (double)$_POST['amount'];
-                            $this->productModel->updateBidding($productID, $product['bidNum'], $_POST['amount']);
+                            $winnerID = (int)$bidder['customer_id'];
+                            $this->productModel->updateBidding($productID, $product['bidNum'], $_POST['amount'], $winnerID);
                             
                             if ($product['bidNum'] > 1){
                             //Refund for the previous bidder, and also minus the the balance of owner

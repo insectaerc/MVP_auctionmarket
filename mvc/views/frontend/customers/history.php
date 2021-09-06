@@ -25,7 +25,6 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <a href=""></a>
                                 <?php
                                 foreach ($data as $entry){
                                     $productArray = $productModel->findProduct($entry['product_id']);
@@ -48,8 +47,31 @@
                 </div>
             </div>
             <div class='col-4'>
-                <div class="card text-white bg-success mb-3">
+                <div class="card border-success mb-3">
                     <div class="card-header h3">Won bid</div>
+                    <div class="card-body">
+                        <table class="table table-hover text-center">
+                            <thead>
+                                <tr>
+                                <th scope="col">Product Name</th>
+                                <th scope="col">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($wonProducts as $product){ ?>
+                                    <tr class='table-secondary'>
+                                        <td>
+                                            <a href='/MVP_auctionmarket/product/detail/<?php echo $product['_id'] ?>'>
+                                                <button type='button' class='btn btn-secondary' data-toggle='tooltip' data-placement='bottom' title='Click for detail'><?php echo $product['name']; ?>
+                                                </button>
+                                            </a>
+                                        </td>
+                                        <td><?php echo $product['highestBid'] ?></td>
+                                    </tr>
+                                <?php } ?>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
