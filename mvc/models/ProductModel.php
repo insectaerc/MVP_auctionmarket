@@ -62,7 +62,7 @@ class ProductModel extends MongoDatabase{
     }
 
     public function findClassifiedProduct($limit, $orderBy, $ascOrDesc){
-        $result = $this->collection->find([], ['projection'=>['name'=>1, 'closingTime'=>1,'minBid'=>1, 'highestBid'=>1, 'bidNum'=>1],'limit'=>$limit,'sort'=>[$orderBy=>$ascOrDesc]]);
+        $result = $this->collection->find(['isAvailable'=>true], ['projection'=>['name'=>1, 'closingTime'=>1,'minBid'=>1, 'highestBid'=>1, 'bidNum'=>1],'limit'=>$limit,'sort'=>[$orderBy=>$ascOrDesc]]);
         $data = [];
         foreach ($result as $entry) {
             array_push($data, $entry);

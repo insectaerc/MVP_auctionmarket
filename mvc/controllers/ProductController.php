@@ -8,7 +8,7 @@
         }
 
         function index(){
-            $data = $this->productModel -> getAll();
+            $data = $this->productModel -> getAvailableProducts();
             parent::view('mvc/views/frontend/products/index.php', $data);
         }
         function detail($id){
