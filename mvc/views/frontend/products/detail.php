@@ -13,7 +13,7 @@
     ?>
     <div class= 'row mx-5'>
         <div class='col text-center' style='height:500px'>
-            <img style='height:500px'src='/MVP_auctionmarket/public/images/dollarsign.jpg' alt='missing image I dont know why'>
+            <img style='height:500px'src='/MVP_auctionmarket/upload/<?php echo $product['name']; ?>' alt='missing image I dont know why'>
         </div>
         <div class='col'>
             <h2><?php echo $product['name'] ?></h2>

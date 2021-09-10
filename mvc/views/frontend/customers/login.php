@@ -151,6 +151,7 @@
             }
         }
     }
+   
 
     ?>
     <div class="register">
@@ -160,7 +161,7 @@
             <hr>
             <label for="avatar" class="form-label mt-4"><b>Avatar</b></label>
             <br>
-            <img id='previewAvatar' class='mb-3' src='/MVP_auctionmarket/public/images/avatar.png' alt='' style=' max-height: 200px;'>
+            <img id='previewAvatar' class='mb-3' src='/MVP_auctionmarket/public/images/avatar.png' alt='' style=' height: 200px;'>
 
             <script>
                 var loadFile = function(event) {

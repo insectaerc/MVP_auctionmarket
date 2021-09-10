@@ -3,12 +3,15 @@ class CustomerController extends BaseController
 {
     public static $instance;
     private $customerModel;
+    private $productModel;
     public function __construct()
     {
         //Create customerModel
         self::$instance = $this;
         self::loadModel('mvc/models/CustomerModel.php');
+        self::loadModel('mvc/models/ProductModel.php');
         $this->customerModel = new CustomerModel;
+        $this->productModel = new ProductModel;
     }
     function index()
     {
@@ -22,9 +25,8 @@ class CustomerController extends BaseController
     
     function inventory(){
         if(isset($_SESSION['customer_id'])){
-            self::loadModel('mvc/models/ProductModel.php');
-            $productModel = new ProductModel;
-            $data = $productModel -> findCustomerProduct($_SESSION['customer_id']);
+            
+            $data = $this -> productModel -> findCustomerProduct($_SESSION['customer_id']);
             parent::view('mvc/views/frontend/customers/inventory.php', $data);
         }else{
             parent::view('mvc/views/frontend/customers/login.php');
