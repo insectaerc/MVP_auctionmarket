@@ -49,8 +49,9 @@
                 $name = $_POST['name'];
                 $minBid = $_POST['minBid'];
                 $closingTime = $_POST['closingTime'];
+                $description = $_POST['description'];
                 $ownerID = $_SESSION['customer_id'];
-                $this->productModel -> store($name, $minBid, $closingTime, $ownerID);
+                $this->productModel -> store($name, $minBid, $closingTime, $description, $ownerID);
             }
         }
         function update($productID){

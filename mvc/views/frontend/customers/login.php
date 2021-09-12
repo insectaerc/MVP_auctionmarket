@@ -172,7 +172,6 @@
             </script>
              <br>
             <input type='file' class="form-control" name='avatar' id="avatar" onchange="loadFile(event)"> <br>
-            <input type="submit" class="btn btn-outline-secondary btn-sm" name="uploadImageBtn" id="uploadImageBtn" value="Upload Image">
             <br>
             <label for="email" class="form-label mt-4"><b>Email</b></label>
             <input type="email" class="form-control" placeholder="Enter Email" name="email" id="email" required>

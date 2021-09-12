@@ -79,13 +79,14 @@ class ProductModel extends MongoDatabase
         return $data;
     }
 
-    public function store($name, $minBid, $closingTime, $ownerID)
+    public function store($name, $minBid, $closingTime, $description, $ownerID)
     {
         $minBid = (float)$minBid;
         $insertOneResult = $this->collection->insertOne([
             'name' => $name,
             'minBid' => $minBid,
             'closingTime' => $closingTime,
+            'description' => $description,
             'bidNum' => 0,
             'highestBid' => $minBid,
             'ownerID' => $ownerID,

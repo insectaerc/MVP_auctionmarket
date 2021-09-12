@@ -21,7 +21,7 @@
             ?>
                     <div class='col-3'>
                         <a href="/MVP_auctionmarket/product/detail/<?php echo $entry['_id'] ?>" style='text-decoration: none'>
-                            <img class='mb-3' src='/MVP_auctionmarket/public/images/dollarsign.jpg' alt='' style='max-width:100%; max-height:100%'>
+                            <img class='mb-3' src='/MVP_auctionmarket/upload/<?php echo $entry['name']; ?>' alt='' style='max-width:100%; max-height:100%'>
                             <h4 class='card-title'><?php echo $entry['name'] ?></h4>
                         </a>
                         <div class='row'>

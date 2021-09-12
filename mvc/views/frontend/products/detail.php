@@ -13,11 +13,11 @@
     ?>
     <div class= 'row mx-5'>
         <div class='col text-center' style='height:500px'>
-            <img style='height:500px'src='/MVP_auctionmarket/upload/<?php echo $product['name']; ?>' alt='missing image I dont know why'>
+            <img style='height:500px width:500px'src='/MVP_auctionmarket/upload/<?php echo $product['name']; ?>' alt='missing image I dont know why'>
         </div>
         <div class='col'>
             <h2><?php echo $product['name'] ?></h2>
-            <p>Product Information: blabla</p>
+            <p>Product Information: <?php echo $product['description']; ?></p>
             <p>Item's owner: <a href="/MVP_auctionmarket/customer/detail/<?php echo $product['ownerID'] ?>">Contact</a></p>
             <br>
             <div class='row'>

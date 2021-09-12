@@ -58,7 +58,6 @@
                                 </script>
                                 <br>
                                 <input type='file' class="form-control" name='productAvatar' id="productAvatar" onchange="loadFile(event)"> <br>
-                                <input type="submit" class="btn btn-outline-secondary btn-sm" name="uploadProductImageBtn" id="uploadProductImageBtn" value="Upload Image">
                                 <br>
                                 <label for="name" class="col-sm-4 col-form-label">Name</label>
                                 <div class="col-sm-8">
@@ -76,6 +75,10 @@
                                 <div class="col-sm-8">
                                     <input type="datetime-local" class="form-control-plaintext" id="closingTime" name="closingTime" placeholder="Ending time for the deal">
                                 </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="description" class="form-label mt-4">Description</label>
+                                <textarea name='description' class="form-control" id="description" rows="3"></textarea>
                             </div>
                         </fieldset>
                     </div>
