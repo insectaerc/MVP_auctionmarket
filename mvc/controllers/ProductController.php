@@ -110,7 +110,6 @@
                             $bidder['balance'] = $bidder['balance'] - $_POST['amount'];
                             $customerModel->updateBalanceOfCustomer($bidder['balance'], $bidder['customer_id']);
                             
-                            $owner = $customerModel->getCustomerById($product['ownerID']);
                             $owner['balance'] = $owner['balance'] + $_POST['amount'];
                             $customerModel->updateBalanceOfCustomer($owner['balance'], $owner['customer_id']);*/
                             
@@ -125,15 +124,18 @@
                             //Get the amount of money of the previous bid
                             $result = $transactionModel->getPreviousBidAmount($productID);
                             $previousAmount = $result['amount'];
+                            echo $result['amount'];
                             //Get the previous bidder
                             $previousBidderID = (int)$result['bidder_id'];
                             $previousBidder = $customerModel->getCustomerById($previousBidderID);
                             //Update balace of previous bidder and owner
                             $previousBidder['balance'] = $previousBidder['balance'] + $previousAmount;
                             $customerModel->updateBalanceOfCustomer($previousBidder['balance'], $previousBidderID);
-
+                            
+                            $owner = $customerModel->getCustomerById($product['ownerID']);
                             $owner['balance'] = $owner['balance'] - $previousAmount;
-                            $customerModel->updateBalanceOfCustomer($owner['balance'], $owner['customer_id']);}
+                            $customerModel->updateBalanceOfCustomer($owner['balance'], $owner['customer_id']);
+                        }
 
                         }else{
                             $_SESSION['message'] = "Your bid must be higher than the current highest bid.";

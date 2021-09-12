@@ -72,7 +72,7 @@ class CustomerModel extends MySQLDatabase
     $sqlStatement = "UPDATE customers SET balance = :balance WHERE customer_id = :customer_id";
     $stmt = $this->db->prepare($sqlStatement);
     $stmt->execute(['balance' => $balance, 'customer_id' => $customer_id]);
-    return header('Location: ' . $_SERVER['HTTP_REFERER']);;
+    //return header('Location: ' . $_SERVER['HTTP_REFERER']);;
   }
   // delete Customer  
   public function deleteCustomer($customer_id)
