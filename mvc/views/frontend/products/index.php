@@ -20,14 +20,21 @@
                     }
             ?>
                     <div class='col-3'>
-                        <a href="/MVP_auctionmarket/product/detail/<?php echo $entry['_id'] ?>" style='text-decoration: none'>
-                            <img class='mb-3' src='/MVP_auctionmarket/upload/<?php echo $entry['name']; ?>' alt='' style='max-width:100%; max-height:100%'>
-                            <h4 class='card-title'><?php echo $entry['name'] ?></h4>
-                        </a>
+                        <div style='height:250px' class='mb-2'>
+                            <a href="/MVP_auctionmarket/product/detail/<?php echo $entry['_id'] ?>" style='text-decoration: none'>
+                                <img class='mb-3' src="/MVP_auctionmarket/upload/<?php echo $entry['name']; ?>" alt='' style='max-width:100%; max-height:100%'>
+                            </a>
+                        </div>
                         <div class='row'>
+                            <div style='height:80px' class='mb-1'>
+                                <a href="/MVP_auctionmarket/product/detail/<?php echo $entry['_id'] ?>" style='text-decoration: none'>
+                                    <h4 class='card-title' class='mb-2'><?php echo $entry['name'] ?></h4>
+                                </a>
+                            </div>
+                            
                             <div class='col'>
-                                <p>Minimum Bid: <br> <?php echo '$'.$entry['minBid'] ?></p>
-                                <p>Current Bid: <br> <?php echo '$'.$entry['highestBid'] ?></p>
+                                <p>Minimum Bid: <br> <?php echo '$'.number_format($entry['minBid'],2) ?></p>
+                                <p>Current Bid: <br> <?php echo '$'.number_format($entry['highestBid'],2) ?></p>
                             </div>
                             <div class='col align-items-center'>
                                 <p>Close on: <br> <?php echo date('Y-m-d H:i:s', strtotime((string)$entry['closingTime'])) ?></p>
