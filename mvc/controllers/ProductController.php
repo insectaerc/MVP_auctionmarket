@@ -106,13 +106,13 @@
                             $transactionType = 'bid';
                             $transactionModel->createTransaction($productID, $transactionType, $product['ownerID'], $_SESSION['customer_id'], $_POST['amount']);
                             
-                            //Update balance of both bidder and owner
+                            /* //Update balance of both bidder and owner
                             $bidder['balance'] = $bidder['balance'] - $_POST['amount'];
                             $customerModel->updateBalanceOfCustomer($bidder['balance'], $bidder['customer_id']);
                             
                             $owner = $customerModel->getCustomerById($product['ownerID']);
                             $owner['balance'] = $owner['balance'] + $_POST['amount'];
-                            $customerModel->updateBalanceOfCustomer($owner['balance'], $owner['customer_id']);
+                            $customerModel->updateBalanceOfCustomer($owner['balance'], $owner['customer_id']);*/
                             
                             //Update product's bidNum + highestBid
                             $product['bidNum'] = $product['bidNum'] + 1;

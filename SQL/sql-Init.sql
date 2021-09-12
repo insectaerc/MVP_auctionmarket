@@ -35,7 +35,7 @@ CREATE TABLE customers
     national_id VARCHAR(50)    NOT NULL,
     phone       VARCHAR(30)    NOT NULL,
     pass	VARCHAR(30)	   NOT NULL,
-    balance     NUMERIC,
+    balance     DOUBLE,
     branch_id	VARCHAR(30),
     PRIMARY KEY (customer_id),
     UNIQUE (email, phone, national_id),
@@ -88,8 +88,63 @@ VALUES
 
 INSERT INTO `admin` (`admin_id`, `email`, `password`, `admin_name`) VALUES ('1', 'admin@gmail.com', '1234', 'John Admin');
 
+-- ADD INDEXES
 ALTER TABLE customers
-ADD INDEX customer_phone_idx (phone)
+ADD INDEX customer_phone_idx (phone);
 
 ALTER TABLE transactions
-ADD INDEX trans_productId_indx (product_id)
+ADD INDEX trans_productId_indx (product_id);
+
+
+-- CREATE STORED PROCEDUREs
+
+-- update_bidder_balance() PROCEDURE
+-- DROP PROCEDURE if EXISTS update_bidder_balance
+delimiter $$
+CREATE PROCEDURE update_bidder_balance()
+BEGIN
+	DECLARE transactedAmount DOUBLE;
+	DECLARE idOfBidder INT;
+	DECLARE balanceOfBidder DOUBLE;
+	
+	SELECT amount, bidder_id INTO transactedAmount, idOfBidder
+	FROM transactions ORDER BY amount DESC LIMIT 1;
+	
+	SELECT balance INTO balanceOfBidder
+	FROM customers WHERE customer_id = idOfBidder;
+	
+	UPDATE customers SET balance = balanceOfBidder - transactedAmount WHERE customer_id = idOfBidder;
+END $$
+delimiter ;
+
+
+-- update_owner_balance() PROCEDURE
+-- DROP PROCEDURE if EXISTS update_owner_balance
+delimiter $$
+CREATE PROCEDURE update_owner_balance()
+BEGIN
+	DECLARE transactedAmount DOUBLE;
+	DECLARE idOfOwner INT;
+	DECLARE balanceOfOwner DOUBLE;
+	
+	SELECT amount, owner_id INTO transactedAmount, idOfOwner
+	FROM transactions ORDER BY amount DESC LIMIT 1;
+	
+	SELECT balance INTO balanceOfOwner
+	FROM customers WHERE customer_id = idOfOwner;
+	
+	UPDATE customers SET balance = balanceOfOwner + transactedAmount WHERE customer_id = idOfOwner;
+END $$
+delimiter ;
+
+-- ADD Trigger
+-- DROP TRIGGER IF EXISTS add_tran_trigger
+delimiter $$
+CREATE TRIGGER add_tran_trigger
+AFTER INSERT ON transactions
+FOR EACH ROW
+BEGIN
+	CALL update_bidder_balance();
+	CALL update_owner_balance();
+END $$
+delimiter ;
