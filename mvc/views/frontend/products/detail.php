@@ -12,8 +12,8 @@
         require 'mvc/views/frontend/nav.php';
     ?>
     <div class= 'row mx-5'>
-        <div class='col text-center' style='height:500px'>
-            <img style='height:500px'src='/MVP_auctionmarket/upload/<?php echo $product['name']; ?>' alt='missing image I dont know why'>
+        <div class='col text-center' style='height:500px; width:500px'>
+            <img style='max-height:500px; max-width:500px'src="/MVP_auctionmarket/upload/<?php echo $product['name']; ?>" alt='missing image I dont know why'>
         </div>
         <div class='col'>
             <h2><?php echo $product['name'] ?></h2>
